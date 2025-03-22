@@ -68,12 +68,12 @@
                         'gradient-gold': 'linear-gradient(135deg, #FFD700 0%, #FF9500 100%)',
                         'gradient-gold-dark': 'linear-gradient(135deg, #E6C200 0%, #E68600 100%)',
                         'hero-pattern': 'linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%), url("hero.jpg")',
-                        'pattern': 'url("pattern.png")',
-                        'tire-pattern': 'url("tire-pattern.png")',
-                        'dot-pattern': 'url("dot-pattern.png")',
-                        'quote-pattern': 'url("quote-pattern.png")',
-                        'pattern-lines': 'url("pattern-lines.png")',
-                        'contact-pattern': 'url("contact-pattern.png")',
+                        'pattern': 'url("https://www.transparenttextures.com/patterns/diagonals.png")',
+                        'tire-pattern': 'url("https://www.transparenttextures.com/patterns/carbon-fibre.png")',
+                        'dot-pattern': 'url("https://www.transparenttextures.com/patterns/dots.png")',
+                        'quote-pattern': 'url("https://www.transparenttextures.com/patterns/cubes.png")',
+                        'pattern-lines': 'url("https://www.transparenttextures.com/patterns/diagonal-lines.png")',
+                        'contact-pattern': 'url("https://www.transparenttextures.com/patterns/diamond-upholstery.png")',
                         'gradient-multi': 'linear-gradient(-45deg, #FFD700, #FFA500, #FF8C00, #FF4500)',
                     }
                 }
@@ -102,14 +102,15 @@
         }
 
         /* Custom Floating Elements */
-        .float-element {
-            position: absolute;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #FFD700 0%, rgba(255, 215, 0, 0.3) 100%);
-            filter: blur(20px);
-            opacity: 0.1;
-            animation: float 15s infinite alternate ease-in-out;
-        }
+       .float-element {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FFD700 0%, rgba(255, 215, 0, 0.3) 100%);
+    filter: blur(20px);
+    opacity: 0.2; /* increased from 0.1 */
+    z-index: 1; /* ensure it's above background */
+    animation: float 15s infinite alternate ease-in-out;
+}
 
         /* Stagger animation delays */
         .stagger-item:nth-child(1) {
@@ -412,7 +413,7 @@
 
     <!-- Categories Section -->
     <section id="categories" class="py-24 bg-light relative">
-        <div class="absolute inset-0 bg-dot-pattern opacity-5"></div>
+        <div class="absolute inset-0 bg-contact-pattern opacity-3"></div>
         <div class="container mx-auto px-6 relative z-10">
             <h2
                 class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 category-title">
@@ -522,7 +523,7 @@
 
     <!-- Featured Products -->
     <section id="products" class="py-24 bg-light relative">
-        <div class="absolute inset-0 opacity-3 bg-pattern-bg bg-cover"></div>
+        <div class="absolute inset-0 bg-quote-pattern opacity-3"></div>
         <div class="container mx-auto px-6 relative z-10">
             <h2
                 class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 product-title">
@@ -729,7 +730,7 @@
 
     <!-- About Us Section -->
     <section id="about" class="py-24 bg-light relative">
-        <div class="absolute inset-0 bg-dot-pattern opacity-5"></div>
+        <div class="absolute inset-0 bg-quote-pattern opacity-3"></div>
         <div class="container mx-auto px-6 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <div
@@ -976,7 +977,7 @@
 
     <!-- Blog Section -->
     <section id="blog" class="py-24 bg-light relative">
-        <div class="absolute inset-0 bg-pattern-lines opacity-3"></div>
+        <div class="absolute inset-0 bg-quote-pattern opacity-3"></div>
         <div class="container mx-auto px-6 relative z-10">
             <h2
                 class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 blog-title">
@@ -1098,7 +1099,7 @@
 
     <!-- FAQ Section -->
     <section id="faq" class="py-24 bg-light relative">
-        <div class="absolute inset-0 bg-pattern-lines opacity-3"></div>
+        <div class="absolute inset-0 bg-contact-pattern opacity-3"></div>
         <div class="container mx-auto px-6 relative z-10">
             <h2
                 class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 faq-title">
