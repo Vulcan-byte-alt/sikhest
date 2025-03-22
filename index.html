@@ -4,196 +4,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon.jpg" type="image/x-icon">
+    <link rel="icon" href="favicon.png" type="image/x-icon">
     <title>Sikhest Performance | Premium Tires, Wheels & Lift Kits</title>
     <meta name="description"
         content="Premium tires, wheels, lift kits and automotive products with nationwide shipping. Founded by Punjabi brothers in Stockton, CA.">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#000000',
+                        accent: '#FFD700',
+                        'accent-dark': '#E6C200',
+                        'accent-light': '#FFF0A0',
+                        light: '#f8f8f8',
+                        dark: '#121212',
+                        gray: {
+                            DEFAULT: '#333333',
+                            light: '#e5e5e5',
+                            dark: '#242424',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        heading: ['Rajdhani', 'sans-serif'],
+                        body: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 15s infinite alternate ease-in-out',
+                        'bounce': 'bounce 2s infinite',
+                        'heroZoom': 'heroZoom 15s infinite alternate ease-in-out',
+                        'gradient-shift': 'gradient-shift 15s ease infinite',
+                        'bgScroll': 'bgScroll 30s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%': { transform: 'translate(0, 0) scale(1)', opacity: '0.05' },
+                            '50%': { transform: 'translate(30px, -30px) scale(1.1)', opacity: '0.08' },
+                            '100%': { transform: 'translate(-30px, 30px) scale(0.9)', opacity: '0.1' }
+                        },
+                        bounce: {
+                            '0%, 20%, 50%, 80%, 100%': { transform: 'translateY(0)' },
+                            '40%': { transform: 'translateY(-20px)' },
+                            '60%': { transform: 'translateY(-10px)' }
+                        },
+                        heroZoom: {
+                            '0%': { transform: 'scale(1)' },
+                            '100%': { transform: 'scale(1.1)' }
+                        },
+                        'gradient-shift': {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                            '100%': { backgroundPosition: '0% 50%' }
+                        },
+                        bgScroll: {
+                            '0%': { backgroundPosition: '0 0' },
+                            '100%': { backgroundPosition: '100% 100%' }
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-gold': 'linear-gradient(135deg, #FFD700 0%, #FF9500 100%)',
+                        'gradient-gold-dark': 'linear-gradient(135deg, #E6C200 0%, #E68600 100%)',
+                        'hero-pattern': 'linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%), url("hero.jpg")',
+                        'pattern': 'url("pattern.png")',
+                        'tire-pattern': 'url("tire-pattern.png")',
+                        'dot-pattern': 'url("dot-pattern.png")',
+                        'quote-pattern': 'url("quote-pattern.png")',
+                        'pattern-lines': 'url("pattern-lines.png")',
+                        'contact-pattern': 'url("contact-pattern.png")',
+                        'gradient-multi': 'linear-gradient(-45deg, #FFD700, #FFA500, #FF8C00, #FF4500)',
+                    }
+                }
+            },
+        }
+    </script>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- GSAP for animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    <!-- Alpine.js for interactivity -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
     <style>
-        :root {
-            --primary: #000000;
-            --accent: #FFD700;
-            --light: #f8f8f8;
-            --gray: #333333;
-            --light-gray: #e5e5e5;
-            --font-primary: 'Montserrat', sans-serif;
-            --font-secondary: 'Rajdhani', sans-serif;
+        /* Custom Animation Classes */
+        .fade-active {
+            opacity: 1 !important;
+            transform: translate(0) rotate(0) scale(1) !important;
+            visibility: visible !important;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: var(--font-primary);
-            color: var(--primary);
-            overflow-x: hidden;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        /* Utilities */
-        .container {
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: var(--accent);
-            color: var(--primary);
-            font-weight: 600;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 14px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--accent);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--accent);
-        }
-
-        .section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            text-align: center;
-            text-transform: uppercase;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
+        /* Custom Floating Elements */
+        .float-element {
             position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: var(--accent);
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFD700 0%, rgba(255, 215, 0, 0.3) 100%);
+            filter: blur(20px);
+            opacity: 0.1;
+            animation: float 15s infinite alternate ease-in-out;
         }
 
-        /* Header */
-        header {
-            background-color: var(--primary);
-            color: white;
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            transition: all 0.4s ease;
+        /* Stagger animation delays */
+        .stagger-item:nth-child(1) {
+            transition-delay: 0ms;
         }
 
-        header.scrolled {
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        .stagger-item:nth-child(2) {
+            transition-delay: 100ms;
         }
 
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
+        .stagger-item:nth-child(3) {
+            transition-delay: 200ms;
         }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent);
+        .stagger-item:nth-child(4) {
+            transition-delay: 300ms;
         }
 
-        .logo span {
-            color: white;
+        .stagger-item:nth-child(5) {
+            transition-delay: 400ms;
         }
 
-        .nav-menu {
-            display: flex;
-            align-items: center;
+        .stagger-item:nth-child(6) {
+            transition-delay: 500ms;
         }
 
-        .nav-item {
-            margin-left: 2rem;
-            position: relative;
-        }
-
-        .nav-link {
-            font-weight: 500;
-            padding: 8px 0;
-            position: relative;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .nav-button {
-            margin-left: 2rem;
-        }
-
-        .hamburger {
-            display: none;
-            cursor: pointer;
-        }
-
-        .hamburger .bar {
-            display: block;
-            width: 25px;
-            height: 3px;
-            margin: 5px auto;
-            background-color: white;
-            transition: all 0.3s ease;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background-color: var(--primary);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
+        /* Hero background animation */
+        .hero-bg::before {
             content: '';
             position: absolute;
             top: 0;
@@ -204,792 +148,372 @@
             background-size: cover;
             background-position: center;
             opacity: 0.3;
-            z-index: 1;
+
+            animation: heroZoom 15s infinite alternate ease-in-out;
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            height: 100%;
-            padding-top: 80px;
+        /* Custom animations for elements that Tailwind doesn't cover */
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.05;
+            }
+
+            50% {
+                transform: translate(30px, -30px) scale(1.1);
+                opacity: 0.08;
+            }
+
+            100% {
+                transform: translate(-30px, 30px) scale(0.9);
+                opacity: 0.1;
+            }
         }
 
-        .hero-title {
-            font-size: 3.5rem;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            max-width: 800px;
+        @keyframes heroZoom {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.1);
+            }
         }
 
-        .hero-title span {
-            color: var(--accent);
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
         }
 
-        .hero-subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            line-height: 1.6;
+        ::-webkit-scrollbar-track {
+            background-color: #e5e5e5;
         }
 
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
+        ::-webkit-scrollbar-thumb {
+            background-color: #FFD700;
+            border-radius: 5px;
         }
 
-        /* Search Vehicle Section */
-        .search-vehicle {
-            padding: 2rem 0;
-            background-color: var(--accent);
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #E6C200;
         }
 
-        .search-form {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .search-form select,
-        .search-form button {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        .search-form select {
-            background-color: white;
-            min-width: 180px;
-        }
-
-        .search-form button {
-            background-color: var(--primary);
-            color: white;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        /* Categories Section */
-        .categories {
-            background-color: var(--light);
-            padding: 5rem 0;
-        }
-
-        .categories-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .category-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        .category-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .category-img {
-            height: 200px;
-            width: 100%;
-            object-fit: cover;
-        }
-
-        .category-content {
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        .category-title {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .category-desc {
-            font-size: 0.9rem;
-            color: var(--gray);
-            margin-bottom: 1rem;
-        }
-
-        /* Featured Products */
-        .featured-products {
-            padding: 5rem 0;
-        }
-
-        .products-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .product-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .product-tag {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background-color: var(--accent);
-            color: var(--primary);
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .product-img {
-            height: 220px;
-            width: 100%;
-            object-fit: contain;
-            padding: 1rem;
-        }
-
-        .product-content {
-            padding: 1.5rem;
-            border-top: 1px solid var(--light-gray);
-        }
-
-        .product-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .product-price {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .current-price {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .old-price {
-            font-size: 0.9rem;
-            color: #999;
-            text-decoration: line-through;
-        }
-
-        .product-rating {
-            display: flex;
-            margin-bottom: 1rem;
-            color: var(--accent);
-        }
-
-        .product-btn {
-            width: 100%;
-            text-align: center;
-        }
-
-        /* Why Choose Us */
-        .why-us {
-            background-color: var(--primary);
-            color: white;
-            padding: 5rem 0;
-        }
-
-        .why-us .section-title {
-            color: white;
-        }
-
-        .features-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-        }
-
-        .feature-box {
-            text-align: center;
-            padding: 2rem;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            transition: transform 0.3s ease;
-        }
-
-        .feature-box:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .feature-desc {
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            padding: 5rem 0;
-            background-color: var(--light);
-        }
-
-        .testimonials-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .testimonial-card {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            position: relative;
-            transition: transform 0.3s ease;
-        }
-
-        .testimonial-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            font-size: 5rem;
-            color: var(--accent);
+        /* Quote Icon */
+        .quote-icon {
+            font-size: 2rem;
+            color: #FFD700;
             opacity: 0.3;
-            line-height: 1;
-        }
-
-        .testimonial-content {
-            font-style: italic;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-
-        .author-img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 1rem;
-        }
-
-        .author-info h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .author-info p {
-            font-size: 0.8rem;
-            color: var(--gray);
-        }
-
-        /* Call to Action */
-        .cta {
-            padding: 5rem 0;
-            background-color: var(--accent);
-            text-align: center;
-        }
-
-        .cta-title {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .cta-text {
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            color: var(--primary);
-        }
-
-        .cta-btn {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .cta-btn:hover {
-            background-color: #222;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--primary);
-            color: white;
-            padding: 4rem 0 0;
-        }
-
-        .footer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-logo {
-            color: var(--accent);
-            font-size: 1.8rem;
-            font-weight: 700;
             margin-bottom: 1rem;
-            display: inline-block;
-        }
-
-        .footer-about p {
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-            font-size: 0.9rem;
-        }
-
-        .footer-title {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-
-        .footer-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background-color: var(--accent);
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links a {
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent);
-            padding-left: 5px;
-        }
-
-        .footer-contact li {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .footer-contact i {
-            margin-right: 10px;
-            color: var(--accent);
-        }
-
-        .footer-contact p {
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        .footer-newsletter p {
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .newsletter-form {
-            display: flex;
-        }
-
-        .newsletter-form input {
-            flex: 1;
-            padding: 10px 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background-color: rgba(255, 255, 255, 0.05);
-            color: white;
-            border-radius: 4px 0 0 4px;
-        }
-
-        .newsletter-form button {
-            background-color: var(--accent);
-            color: var(--primary);
-            border: none;
-            padding: 10px 15px;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding: 1.5rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .social-icons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            background-color: var(--accent);
-            color: var(--primary);
-        }
-
-        /* Modal Popup for iFrame */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-container {
-            background-color: white;
-            width: 90%;
-            max-width: 1200px;
-            height: 80vh;
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
-            transform: scale(0.8);
-            transition: all 0.3s ease;
-        }
-
-        .modal-overlay.active .modal-container {
-            transform: scale(1);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background-color: var(--accent);
-            color: var(--primary);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 10;
-            font-size: 1.2rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .modal-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero-title {
-                font-size: 2.8rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                flex-direction: column;
-                background-color: var(--primary);
-                width: 100%;
-                text-align: center;
-                transition: 0.3s;
-                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-                padding: 2rem 0;
-            }
-
-            .nav-menu.active {
-                left: 0;
-            }
-
-            .nav-item {
-                margin: 2rem 0;
-            }
-
-            .hamburger {
-                display: block;
-            }
-
-            .hamburger.active .bar:nth-child(2) {
-                opacity: 0;
-            }
-
-            .hamburger.active .bar:nth-child(1) {
-                transform: translateY(8px) rotate(45deg);
-            }
-
-            .hamburger.active .bar:nth-child(3) {
-                transform: translateY(-8px) rotate(-45deg);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero-content {
-                text-align: center;
-                align-items: center;
-            }
-
-            .hero-title {
-                font-size: 2.2rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .hero-buttons .btn {
-                width: 100%;
-                margin-bottom: 1rem;
-            }
-
-            .search-form {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .search-form select,
-            .search-form button {
-                width: 100%;
-            }
-
-            .footer-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animation Classes */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            visibility: hidden;
-        }
-
-        .fade-left {
-            opacity: 0;
-            transform: translateX(-30px);
-            visibility: hidden;
-        }
-
-        .fade-right {
-            opacity: 0;
-            transform: translateX(30px);
-            visibility: hidden;
-        }
-
-        .fade-in {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        /* Animation active state */
-        .fade-active {
-            opacity: 1;
-            transform: translate(0);
-            visibility: visible;
-            transition: opacity 0.8s ease, transform 0.8s ease, visibility 0.8s ease;
         }
     </style>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
 </head>
 
-<body>
+<body class="font-sans text-primary bg-light overflow-x-hidden scroll-smooth">
+    <!-- Back to Top Button -->
+    <div id="backToTop"
+        class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-accent text-primary flex items-center justify-center cursor-pointer shadow-lg z-50 opacity-0 invisible transition-all duration-300 hover:transform hover:-translate-y-1">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <!-- Floating Elements -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="float-element w-72 h-72 top-[10%] left-[5%] animate-[float_20s_ease-in-out_0s_infinite_alternate]">
+        </div>
+        <div class="float-element w-64 h-64 top-[60%] right-[5%] animate-[float_18s_ease-in-out_5s_infinite_alternate]">
+        </div>
+        <div
+            class="float-element w-52 h-52 bottom-[10%] left-[15%] animate-[float_22s_ease-in-out_2s_infinite_alternate]">
+        </div>
+        <div
+            class="float-element w-44 h-44 top-[30%] right-[20%] animate-[float_16s_ease-in-out_8s_infinite_alternate]">
+        </div>
+        <div
+            class="float-element w-36 h-36 bottom-[30%] left-[50%] animate-[float_19s_ease-in-out_4s_infinite_alternate]">
+        </div>
+    </div>
+
     <!-- Header -->
-    <header>
-        <div class="header-container">
-            <a href="#" class="logo">
-                <img src="logo.jpg" alt="SIKHEST PERFORMANCE"
-                    style="margin-left:70px; width:130px; height: 1em; vertical-align: middle;">
-            </a>
+    <header id="header" class="fixed w-full z-50 transition-all duration-300"
+        x-data="{ isOpen: false, isScrolled: false }" @scroll.window="isScrolled = window.scrollY > 50"
+        :class="{'bg-black/95 backdrop-blur-md': isScrolled}">
+        <div class="container mx-auto px-4 py-8" :class="{ 'py-6': isScrolled }">
+            <div class="flex justify-between items-center">
+                <a href="#" class="flex items-center text-accent font-bold text-2xl transition hover:scale-105">
+                    <img src="logo.png" alt="SIKHEST PERFORMANCE" class="h-10 mr-2 drop-shadow-md">
+                </a>
 
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+                <div class="md:hidden z-50 cursor-pointer" @click="isOpen = !isOpen">
+                    <span class="block w-6 h-0.5 bg-white mb-1.5 transition-all"
+                        :class="{'rotate-45 translate-y-2': isOpen}"></span>
+                    <span class="block w-6 h-0.5 bg-white mb-1.5 transition-all" :class="{'opacity-0': isOpen}"></span>
+                    <span class="block w-6 h-0.5 bg-white transition-all"
+                        :class="{'-rotate-45 -translate-y-2': isOpen}"></span>
+                </div>
+
+                <nav class="hidden md:flex items-center">
+                    <ul class="flex items-center space-x-8">
+                        <li><a href="#home"
+                                class="text-white font-medium hover:text-accent transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all hover:after:w-full">Home</a>
+                        </li>
+                        <li><a href="#"
+                                class="tire-btn text-white font-medium hover:text-accent transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all hover:after:w-full">Tires</a>
+                        </li>
+                        <li><a href="#products"
+                                class="text-white font-medium hover:text-accent transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all hover:after:w-full">Products</a>
+                        </li>
+                        <li><a href="#"
+                                class="text-white font-medium hover:text-accent transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all hover:after:w-full">About Us</a></li>
+                        <li><a href="#about"
+                                class="text-white font-medium hover:text-accent transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all hover:after:w-full">Blog</a></li>
+                        <li><a href="#blog"
+                                class="text-white font-medium hover:text-accent transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all hover:after:w-full">FAQ</a>
+                        </li>
+                        <li><a href="#contact"
+                                class="text-white font-medium hover:text-accent transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all hover:after:w-full">Contact</a>
+                        </li>
+                        <li><a href="#"
+                                class="inline-block px-6 py-3 bg-gradient-to-r from-accent to-amber-500 text-primary font-semibold uppercase tracking-wider text-sm rounded shadow hover:-translate-y-1 transition-all hover:shadow-lg">Shop
+                                Now</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Mobile Menu -->
+                <div class="fixed inset-0 bg-black/95 z-40 flex flex-col items-center justify-center transition-all duration-300 transform md:hidden"
+                    :class="isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'" @click.self="isOpen = false">
+                    <ul class="flex flex-col items-center space-y-6 py-8">
+                        <li><a href="#home" class="text-white text-lg font-medium hover:text-accent transition-colors"
+                                @click="isOpen = false">Home</a></li>
+                        <li><a href="#"
+                                class="tire-btn text-white text-lg font-medium hover:text-accent transition-colors"
+                                @click="isOpen = false">Tires</a></li>
+                        <li><a href="#products"
+                                class="text-white text-lg font-medium hover:text-accent transition-colors"
+                                @click="isOpen = false">Products</a></li>
+                        <li><a href="#" class="text-white text-lg font-medium hover:text-accent transition-colors"
+                                @click="isOpen = false">About us</a></li>
+                        <li><a href="#about" class="text-white text-lg font-medium hover:text-accent transition-colors"
+                                @click="isOpen = false">Blog</a></li>
+                        <li><a href="#blog" class="text-white text-lg font-medium hover:text-accent transition-colors"
+                                @click="isOpen = false">FAQ</a></li>
+                        <li><a href="#contact"
+                                class="text-white text-lg font-medium hover:text-accent transition-colors"
+                                @click="isOpen = false">Contact</a></li>
+                        <li><a href="#"
+                                class="inline-block px-6 py-3 bg-gradient-to-r from-accent to-amber-500 text-primary font-semibold uppercase tracking-wider text-sm rounded shadow hover:-translate-y-1 transition-all hover:shadow-lg"
+                                @click="isOpen = false">Shop Now</a></li>
+                    </ul>
+                </div>
             </div>
-
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link tire-btn">Tires</a></li>
-                <li class="nav-item"><a href="#" class="nav-link wheel-btn">Wheels</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Lift Kits</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Suspensions</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
-                <li class="nav-button">
-                    <a href="#" class="btn">Shop Now</a>
-                </li>
-            </ul>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="container hero-content">
-            <h1 class="hero-title fade-up">Elevate Your Drive with <span>Sikhest Tires</span></h1>
-            <p class="hero-subtitle fade-up">Welcome to Sikhest Performance—where your drive meets excellence. Our
-                mission is to provide you with the highest quality tires and wheels, combined with swift shipping and
-                exceptional value.</p>
-            <div class="hero-buttons fade-up">
-                <a href="#" class="btn tire-btn">Shop Tires</a>
-                <a href="#" class="btn btn-outline wheel-btn" style="color: white;">Shop Wheels</a>
+    <section id="home" class="hero relative flex items-center bg-primary text-white min-h-screen">
+        <div class="hero-bg absolute inset-0 overflow-hidden"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-black/20 to-black/10"></div>
+        <div class="container mx-auto px-6 z-10">
+            <div class="max-w-3xl opacity-0 transform translate-y-6 transition-all duration-1000 ease-out"
+                id="hero-content">
+                <h3 class="text-accent text-base uppercase tracking-wider font-medium mb-3">Premium Automotive Products
+                </h3>
+                <h1 class="text-4xl md:text-5xl font-extrabold uppercase leading-loose mb-4 text-shadow">
+                    Elevate Your Drive with <span class="text-accent relative inline-block "  style="margin-top: 8px;">Sikhest Perfomance</span>
+                </h1>
+                <p class="text-base md:text-lg mb-6 max-w-xl leading-relaxed">
+                    Welcome to Sikhest Performance—where your drive meets excellence. Our mission is to provide you with the highest quality
+                    tires and wheels, combined with swift shipping and exceptional value.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#"
+                        class="tire-btn inline-block px-7 py-3 bg-gradient-to-r from-accent to-amber-500 text-primary font-semibold uppercase tracking-wider rounded shadow hover:-translate-y-1 transition-all hover:shadow-lg">
+                        <i class="fas fa-tire mr-2"></i> Shop Tires
+                    </a>
+                    <a href="#"
+                        class="wheel-btn inline-block px-7 py-3 border-2 border-accent text-white font-semibold uppercase tracking-wider rounded shadow hover:bg-gradient-to-r hover:from-accent hover:to-amber-500 hover:text-primary hover:-translate-y-1 transition-all hover:shadow-lg">
+                        <i class="fas fa-dharmachakra mr-2"></i> Shop Wheels
+                    </a>
+                </div>
             </div>
+        </div>
+        <div
+            class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-white animate-bounce z-10">
+            <span class="text-sm uppercase tracking-wider mb-2">Scroll Down</span>
+            <i class="fas fa-chevron-down text-accent text-2xl"></i>
         </div>
     </section>
 
     <!-- Search Vehicle Section -->
-    <section class="search-vehicle">
-        <div class="container">
-            <form class="search-form" action="#" method="get">
-                <select name="year" id="year">
-                    <option value="">Select Year</option>
-                    <option value="2023">2023</option>
-                    <option value="2022">2022</option>
-                    <option value="2021">2021</option>
-                    <!-- More options -->
-                </select>
+    <section class="bg-primary relative z-10 py-12">
+        <div class="absolute inset-0 bg-pattern opacity-5"></div>
+        <div class="container mx-auto px-6">
+            <div
+                class="bg-gradient-to-r from-accent/90 to-amber-500/90 rounded-lg p-8 shadow-xl relative overflow-hidden">
+                <h3 class="text-center text-primary text-2xl font-bold mb-6">Find Products For Your Vehicle</h3>
+                <form class="flex flex-wrap gap-5 justify-center items-end relative z-10">
+                    <div class="flex-1 min-w-[200px]">
+                        <label for="year" class="block mb-2 font-semibold text-primary">Vehicle Year</label>
+                        <select name="year" id="year"
+                            class="w-full px-4 py-3 rounded bg-white shadow-md appearance-none bg-no-repeat bg-[right_15px_center] bg-[length:15px] bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23333%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e')] focus:outline-none focus:ring-2 focus:ring-accent">
+                            <option value="">Select Year</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                        </select>
+                    </div>
 
-                <select name="make" id="make">
-                    <option value="">Select Make</option>
-                    <option value="toyota">Toyota</option>
-                    <option value="honda">Honda</option>
-                    <option value="ford">Ford</option>
-                    <!-- More options -->
-                </select>
+                    <div class="flex-1 min-w-[200px]">
+                        <label for="make" class="block mb-2 font-semibold text-primary">Vehicle Make</label>
+                        <select name="make" id="make"
+                            class="w-full px-4 py-3 rounded bg-white shadow-md appearance-none bg-no-repeat bg-[right_15px_center] bg-[length:15px] bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23333%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e')] focus:outline-none focus:ring-2 focus:ring-accent">
+                            <option value="">Select Make</option>
+                            <option value="toyota">Toyota</option>
+                            <option value="honda">Honda</option>
+                            <option value="ford">Ford</option>
+                            <option value="chevrolet">Chevrolet</option>
+                            <option value="nissan">Nissan</option>
+                        </select>
+                    </div>
 
-                <select name="model" id="model">
-                    <option value="">Select Model</option>
-                    <option value="camry">Camry</option>
-                    <option value="accord">Accord</option>
-                    <option value="f150">F-150</option>
-                    <!-- More options -->
-                </select>
+                    <div class="flex-1 min-w-[200px]">
+                        <label for="model" class="block mb-2 font-semibold text-primary">Vehicle Model</label>
+                        <select name="model" id="model"
+                            class="w-full px-4 py-3 rounded bg-white shadow-md appearance-none bg-no-repeat bg-[right_15px_center] bg-[length:15px] bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23333%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e')] focus:outline-none focus:ring-2 focus:ring-accent">
+                            <option value="">Select Model</option>
+                            <option value="camry">Camry</option>
+                            <option value="accord">Accord</option>
+                            <option value="f150">F-150</option>
+                            <option value="silverado">Silverado</option>
+                            <option value="altima">Altima</option>
+                        </select>
+                    </div>
 
-                <button type="submit">Find My Tires</button>
-            </form>
+                    <div class="flex-1 min-w-[200px]">
+                        <label for="trim" class="block mb-2 font-semibold text-primary">Vehicle Trim</label>
+                        <select name="trim" id="trim"
+                            class="w-full px-4 py-3 rounded bg-white shadow-md appearance-none bg-no-repeat bg-[right_15px_center] bg-[length:15px] bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23333%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e')] focus:outline-none focus:ring-2 focus:ring-accent">
+                            <option value="">Select Trim</option>
+                            <option value="base">Base</option>
+                            <option value="sport">Sport</option>
+                            <option value="limited">Limited</option>
+                            <option value="platinum">Platinum</option>
+                        </select>
+                    </div>
+
+                    <button type="submit"
+                        class="px-6 py-3 mt-6 bg-primary text-white font-semibold uppercase tracking-wider rounded shadow hover:bg-gray-dark hover:-translate-y-1 transition-all hover:shadow-lg flex-1 min-w-[200px]">
+                        <i class="fas fa-search mr-2"></i> Find My Tires
+                    </button>
+                </form>
+            </div>
         </div>
     </section>
 
     <!-- Categories Section -->
-    <section class="categories section">
-        <div class="container">
-            <h2 class="section-title fade-up">Shop By Category</h2>
-            <div class="categories-container">
+    <section id="categories" class="py-24 bg-light relative">
+        <div class="absolute inset-0 bg-dot-pattern opacity-5"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h2
+                class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 category-title">
+                Shop By <span
+                    class="text-accent relative inline-block after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-full after:h-1 after:bg-gradient-to-r after:from-accent after:to-amber-500 after:rounded">Category</span>
+            </h2>
+            <p
+                class="text-center max-w-3xl mx-auto text-lg leading-relaxed text-gray mb-16 opacity-0 transform translate-y-6 transition-all duration-1000 delay-100 category-desc">
+                Explore our premium selection of automotive products designed to enhance your vehicle's performance,
+                aesthetics, and capabilities.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Category 1 -->
-                <div class="category-card fade-up">
-                    <img src="perfomance.jpg" alt="Performance Tires" class="category-img">
-                    <div class="category-content">
-                        <h3 class="category-title">Performance Tires</h3>
-                        <p class="category-desc">Premium tires designed for optimal grip and handling.</p>
-                        <a href="#" class="btn tire-btn">Shop Now</a>
+                <div
+                    class="bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl cursor-pointer opacity-0 transform translate-y-10 category-card">
+                    <div class="h-64 relative overflow-hidden">
+                        <img src="perfomance.jpg" alt="Performance Tires"
+                            class="w-full h-full object-cover transition-transform duration-700 ease-in-out hover:scale-110">
+                    </div>
+                    <div class="p-8 relative">
+                        <div
+                            class="absolute -top-6 left-6 w-12 h-12 bg-gradient-to-r from-accent to-amber-500 rounded-full flex items-center justify-center text-primary text-xl shadow-md">
+                            <i class="fas fa-life-ring"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 mt-2 transition-colors hover:text-accent">Performance Tires
+                        </h3>
+                        <p class="text-gray text-sm mb-6 leading-relaxed">Premium tires engineered for optimal grip,
+                            handling, and durability across various driving conditions and terrains.</p>
+                        <a href="#" class="tire-btn inline-flex items-center font-semibold text-primary transition-all">
+                            Explore Collection <i
+                                class="fas fa-arrow-right ml-2 transition-transform ease-in-out group-hover:translate-x-1"></i>
+                        </a>
                     </div>
                 </div>
 
                 <!-- Category 2 -->
-                <div class="category-card fade-up">
-                    <img src="custom.jpg" alt="Custom Wheels" class="category-img">
-                    <div class="category-content">
-                        <h3 class="category-title">Custom Wheels</h3>
-                        <p class="category-desc">Stylish and durable wheels to transform your ride.</p>
-                        <a href="#" class="btn wheel-btn">Shop Now</a>
+                <div
+                    class="bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl cursor-pointer opacity-0 transform translate-y-10 category-card">
+                    <div class="h-64 relative overflow-hidden">
+                        <img src="custom.jpg" alt="Custom Wheels"
+                            class="w-full h-full object-cover transition-transform duration-700 ease-in-out hover:scale-110">
+                    </div>
+                    <div class="p-8 relative">
+                        <div
+                            class="absolute -top-6 left-6 w-12 h-12 bg-gradient-to-r from-accent to-amber-500 rounded-full flex items-center justify-center text-primary text-xl shadow-md">
+                            <i class="fas fa-dharmachakra"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 mt-2 transition-colors hover:text-accent">Custom Wheels</h3>
+                        <p class="text-gray text-sm mb-6 leading-relaxed">Stylish and durable wheels designed to
+                            transform your vehicle's appearance and enhance performance.</p>
+                        <a href="#"
+                            class="wheel-btn inline-flex items-center font-semibold text-primary transition-all">
+                            Explore Collection <i
+                                class="fas fa-arrow-right ml-2 transition-transform ease-in-out group-hover:translate-x-1"></i>
+                        </a>
                     </div>
                 </div>
 
                 <!-- Category 3 -->
-                <div class="category-card fade-up">
-                    <img src="truck.jpg" alt="Truck Lift Kits" class="category-img">
-                    <div class="category-content">
-                        <h3 class="category-title">Truck Lift Kits</h3>
-                        <p class="category-desc">Elevate your truck with our premium lift kits.</p>
-                        <a href="#" class="btn">Shop Now</a>
+                <div
+                    class="bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl cursor-pointer opacity-0 transform translate-y-10 category-card">
+                    <div class="h-64 relative overflow-hidden">
+                        <img src="truck.jpg" alt="Truck Lift Kits"
+                            class="w-full h-full object-cover transition-transform duration-700 ease-in-out hover:scale-110">
+                    </div>
+                    <div class="p-8 relative">
+                        <div
+                            class="absolute -top-6 left-6 w-12 h-12 bg-gradient-to-r from-accent to-amber-500 rounded-full flex items-center justify-center text-primary text-xl shadow-md">
+                            <i class="fas fa-truck-monster"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 mt-2 transition-colors hover:text-accent">Truck Lift Kits</h3>
+                        <p class="text-gray text-sm mb-6 leading-relaxed">Professional-grade lift kits engineered to
+                            enhance your truck's ground clearance, appearance, and off-road capabilities.</p>
+                        <a href="#" class="wheel-btn inline-flex items-center font-semibold text-primary transition-all">
+                            Explore Collection <i
+                                class="fas fa-arrow-right ml-2 transition-transform ease-in-out group-hover:translate-x-1"></i>
+                        </a>
                     </div>
                 </div>
 
                 <!-- Category 4 -->
-                <div class="category-card fade-up">
-                    <img src="suspension.jpg" alt="Suspension Systems" class="category-img">
-                    <div class="category-content">
-                        <h3 class="category-title">Suspension Systems</h3>
-                        <p class="category-desc">Experience enhanced performance with our suspension upgrades.</p>
-                        <a href="#" class="btn">Shop Now</a>
+                <div
+                    class="bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl cursor-pointer opacity-0 transform translate-y-10 category-card">
+                    <div class="h-64 relative overflow-hidden">
+                        <img src="suspension.jpg" alt="Suspension Systems"
+                            class="w-full h-full object-cover transition-transform duration-700 ease-in-out hover:scale-110">
+                    </div>
+                    <div class="p-8 relative">
+                        <div
+                            class="absolute -top-6 left-6 w-12 h-12 bg-gradient-to-r from-accent to-amber-500 rounded-full flex items-center justify-center text-primary text-xl shadow-md">
+                            <i class="fas fa-car-side"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 mt-2 transition-colors hover:text-accent">Suspension Systems
+                        </h3>
+                        <p class="text-gray text-sm mb-6 leading-relaxed">Premium suspension components designed to
+                            improve handling, comfort, and overall driving dynamics.</p>
+                        <a href="#" class="wheel-btn inline-flex items-center font-semibold text-primary transition-all">
+                            Explore Collection <i
+                                class="fas fa-arrow-right ml-2 transition-transform ease-in-out group-hover:translate-x-1"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -997,438 +521,1400 @@
     </section>
 
     <!-- Featured Products -->
-    <section class="featured-products section">
-        <div class="container">
-            <h2 class="section-title fade-up">Featured Products</h2>
-            <div class="products-container">
+    <section id="products" class="py-24 bg-light relative">
+        <div class="absolute inset-0 opacity-3 bg-pattern-bg bg-cover"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h2
+                class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 product-title">
+                Featured <span
+                    class="text-accent relative inline-block after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-full after:h-1 after:bg-gradient-to-r after:from-accent after:to-amber-500 after:rounded">Products</span>
+            </h2>
+            <p
+                class="text-center max-w-3xl mx-auto text-lg leading-relaxed text-gray mb-16 opacity-0 transform translate-y-6 transition-all duration-1000 delay-100 product-desc">
+                Discover our top-selling products that combine quality, performance, and value. Each item is carefully
+                selected to enhance your driving experience.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Product 1 -->
-                <div class="product-card fade-up">
-                    <span class="product-tag">New Arrival</span>
-                    <img src="off-road.jpg" alt="Premium Off-Road Tire" class="product-img">
-                    <div class="product-content">
-                        <h3 class="product-title">Premium Off-Road Tire</h3>
-                        <div class="product-price">
-                            <span class="current-price">$189.99</span>
-                            <span class="old-price">$249.99</span>
+                <div
+                    class="bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-xl flex flex-col h-full relative opacity-0 transform translate-y-10 product-card">
+                    <span
+                        class="absolute top-4 right-4 bg-gradient-to-r from-accent to-amber-500 text-primary text-xs font-bold py-1 px-3 rounded z-10 shadow-sm">New
+                        Arrival</span>
+                    <div class="relative h-56 bg-gray-50 overflow-hidden">
+                        <img src="off-road.jpg" alt="All-Terrain Off-Road Tire"
+                            class="w-full h-full object-cover transition-transform duration-500 ease-in-out product-img">
+                        <div
+                            class="absolute top-4 left-4 flex flex-col space-y-2 opacity-0 -translate-x-2 transition-all duration-300 product-actions">
+                            <button
+                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray shadow-md hover:bg-accent hover:scale-110 transition-all">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button
+                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray shadow-md hover:bg-accent hover:scale-110 transition-all">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button
+                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray shadow-md hover:bg-accent hover:scale-110 transition-all">
+                                <i class="fas fa-exchange-alt"></i>
+                            </button>
                         </div>
-                        <div class="product-rating">
+                    </div>
+                    <div class="p-6 border-t border-gray-light flex-grow flex flex-col">
+                        <span class="text-xs text-accent font-semibold uppercase tracking-wider mb-2">Tires</span>
+                        <h3 class="text-lg font-bold mb-2 product-title transition-colors duration-300">Premium
+                            All-Terrain Off-Road Tire</h3>
+                        <p class="text-gray text-sm mb-4">Engineered for extreme durability and traction in any off-road
+                            condition.</p>
+                        <div class="flex text-accent mb-4">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star-half-alt"></i>
                         </div>
-                        <a href="#" class="btn product-btn tire-btn">View Details</a>
+                        <div class="flex items-center justify-between mb-4 mt-auto">
+                            <span class="text-xl font-bold">$189.99</span>
+                            <span class="text-gray line-through text-sm">$249.99</span>
+                        </div>
+                        <a href="#"
+                            class="tire-btn w-full py-3 bg-gradient-to-r from-accent to-amber-500 text-primary font-semibold text-center rounded shadow transition-all hover:-translate-y-1 hover:shadow-lg">View
+                            Details</a>
                     </div>
                 </div>
 
                 <!-- Product 2 -->
-                <div class="product-card fade-up">
-                    <span class="product-tag">Best Seller</span>
-                    <img src="alloy.jpg" alt="Performance Alloy Wheels" class="product-img">
-                    <div class="product-content">
-                        <h3 class="product-title">Performance Alloy Wheels</h3>
-                        <div class="product-price">
-                            <span class="current-price">$349.99</span>
-                            <span class="old-price">$399.99</span>
+                <div
+                    class="bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-xl flex flex-col h-full relative opacity-0 transform translate-y-10 product-card">
+                    <span
+                        class="absolute top-4 right-4 bg-gradient-to-r from-accent to-amber-500 text-primary text-xs font-bold py-1 px-3 rounded z-10 shadow-sm">Best
+                        Seller</span>
+                    <div class="relative h-56 bg-gray-50 overflow-hidden">
+                        <img src="alloy.jpg" alt="Performance Alloy Wheels"
+                            class="w-full h-full object-cover transition-transform duration-500 ease-in-out product-img">
+                        <div
+                            class="absolute top-4 left-4 flex flex-col space-y-2 opacity-0 -translate-x-2 transition-all duration-300 product-actions">
+                            <button
+                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray shadow-md hover:bg-accent hover:scale-110 transition-all">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button
+                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray shadow-md hover:bg-accent hover:scale-110 transition-all">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button
+                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray shadow-md hover:bg-accent hover:scale-110 transition-all">
+                                <i class="fas fa-exchange-alt"></i>
+                            </button>
                         </div>
-                        <div class="product-rating">
+                    </div>
+                    <div class="p-6 border-t border-gray-light flex-grow flex flex-col">
+                        <span class="text-xs text-accent font-semibold uppercase tracking-wider mb-2">Wheels</span>
+                        <h3 class="text-lg font-bold mb-2 product-title transition-colors duration-300">Performance
+                            Alloy Wheels</h3>
+                        <p class="text-gray text-sm mb-4">Precision-engineered alloy wheels that enhance both
+                            performance and style.</p>
+                        <div class="flex text-accent mb-4">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                         </div>
-                        <a href="#" class="btn product-btn wheel-btn">View Details</a>
+                        <div class="flex items-center justify-between mb-4 mt-auto">
+                            <span class="text-xl font-bold">$349.99</span>
+                            <span class="text-gray line-through text-sm">$399.99</span>
+                        </div>
+                        <a href="#"
+                            class="wheel-btn w-full py-3 bg-gradient-to-r from-accent to-amber-500 text-primary font-semibold text-center rounded shadow transition-all hover:-translate-y-1 hover:shadow-lg">View
+                            Details</a>
                     </div>
                 </div>
 
                 <!-- Product 3 -->
-                <div class="product-card fade-up">
-                    <img src="truck_lift.jpg" alt="Truck Lift Kit Pro" class="product-img">
-                    <div class="product-content">
-                        <h3 class="product-title">Truck Lift Kit Pro</h3>
-                        <div class="product-price">
-                            <span class="current-price">$599.99</span>
-                            <span class="old-price">$699.99</span>
+                <div
+                    class="bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-xl flex flex-col h-full relative opacity-0 transform translate-y-10 product-card">
+                    <div class="relative h-56 bg-gray-50 overflow-hidden">
+                        <img src="truck_lift.jpg" alt="Truck Lift Kit Pro"
+                            class="w-full h-full object-cover transition-transform duration-500 ease-in-out product-img">
+                        <div
+                            class="absolute top-4 left-4 flex flex-col space-y-2 opacity-0 -translate-x-2 transition-all duration-300 product-actions">
+                            <button
+                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray shadow-md hover:bg-accent hover:scale-110 transition-all">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button
+                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray shadow-md hover:bg-accent hover:scale-110 transition-all">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button
+                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray shadow-md hover:bg-accent hover:scale-110 transition-all">
+                                <i class="fas fa-exchange-alt"></i>
+                            </button>
                         </div>
-                        <div class="product-rating">
+                    </div>
+                    <div class="p-6 border-t border-gray-light flex-grow flex flex-col">
+                        <span class="text-xs text-accent font-semibold uppercase tracking-wider mb-2">Lift Kits</span>
+                        <h3 class="text-lg font-bold mb-2 product-title transition-colors duration-300">Professional
+                            Truck Lift Kit</h3>
+                        <p class="text-gray text-sm mb-4">Complete lift system designed for maximum clearance and
+                            off-road performance.</p>
+                        <div class="flex text-accent mb-4">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="far fa-star"></i>
                         </div>
-                        <a href="#" class="btn product-btn">View Details</a>
+                        <div class="flex items-center justify-between mb-4 mt-auto">
+                            <span class="text-xl font-bold">$599.99</span>
+                            <span class="text-gray line-through text-sm">$699.99</span>
+                        </div>
+                        <a href="#"
+                            class="wheel-btn w-full py-3 bg-gradient-to-r from-accent to-amber-500 text-primary font-semibold text-center rounded shadow transition-all hover:-translate-y-1 hover:shadow-lg">View
+                            Details</a>
                     </div>
                 </div>
 
                 <!-- Product 4 -->
-                <div class="product-card fade-up">
-                    <span class="product-tag">Sale</span>
-                    <img src="perfomance_sus.jpg" alt="Performance Suspension System" class="product-img">
-                    <div class="product-content">
-                        <h3 class="product-title">Performance Suspension System</h3>
-                        <div class="product-price">
-                            <span class="current-price">$429.99</span>
-                            <span class="old-price">$549.99</span>
+                <div
+                    class="bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-xl flex flex-col h-full relative opacity-0 transform translate-y-10 product-card">
+                    <span
+                        class="absolute top-4 right-4 bg-gradient-to-r from-accent to-amber-500 text-primary text-xs font-bold py-1 px-3 rounded z-10 shadow-sm">Sale</span>
+                    <div class="relative h-56 bg-gray-50 overflow-hidden">
+                        <img src="perfomance_sus.jpg" alt="Performance Suspension System"
+                            class="w-full h-full object-cover transition-transform duration-500 ease-in-out product-img">
+                        <div
+                            class="absolute top-4 left-4 flex flex-col space-y-2 opacity-0 -translate-x-2 transition-all duration-300 product-actions">
+                            <button
+                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray shadow-md hover:bg-accent hover:scale-110 transition-all">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button
+                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray shadow-md hover:bg-accent hover:scale-110 transition-all">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button
+                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray shadow-md hover:bg-accent hover:scale-110 transition-all">
+                                <i class="fas fa-exchange-alt"></i>
+                            </button>
                         </div>
-                        <div class="product-rating">
+                    </div>
+                    <div class="p-6 border-t border-gray-light flex-grow flex flex-col">
+                        <span class="text-xs text-accent font-semibold uppercase tracking-wider mb-2">Suspension</span>
+                        <h3 class="text-lg font-bold mb-2 product-title transition-colors duration-300">Premium
+                            Suspension System</h3>
+                        <p class="text-gray text-sm mb-4">Advanced suspension components for improved handling and
+                            driving comfort.</p>
+                        <div class="flex text-accent mb-4">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star-half-alt"></i>
                         </div>
-                        <a href="#" class="btn product-btn">View Details</a>
+                        <div class="flex items-center justify-between mb-4 mt-auto">
+                            <span class="text-xl font-bold">$429.99</span>
+                            <span class="text-gray line-through text-sm">$549.99</span>
+                        </div>
+                        <a href="#"
+                            class="wheel-btn w-full py-3 bg-gradient-to-r from-accent to-amber-500 text-primary font-semibold text-center rounded shadow transition-all hover:-translate-y-1 hover:shadow-lg">View
+                            Details</a>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-24 bg-light relative">
+        <div class="absolute inset-0 bg-dot-pattern opacity-5"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div
+                    class="lg:col-span-7 opacity-0 transform translate-x-12 transition-all duration-1000 about-content">
+                    <h2 class="text-4xl font-extrabold mb-6">
+                        About <span
+                            class="text-accent relative inline-block after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-full after:h-1 after:bg-gradient-to-r after:from-accent after:to-amber-500 after:rounded">Sikhest
+                            Performance</span>
+                    </h2>
+                    <p class="text-gray text-lg leading-relaxed mb-8">
+                        Founded by first-generation Punjabi brothers in Stockton, California, Sikhest Performance was
+                        born from a passion for automotive excellence and a commitment to quality. Our journey began
+                        with a simple goal: to provide premium automotive products at fair prices with exceptional
+                        service.
+                    </p>
+                    <p class="text-gray text-lg leading-relaxed mb-8">
+                        Today, we're proud to offer nationwide shipping on our extensive collection of tires, wheels,
+                        lift kits, and performance parts. Our team combines industry expertise with a dedication to
+                        customer satisfaction, ensuring every purchase enhances your vehicle's performance and
+                        appearance.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="stat-item">
+                            <div class="flex items-center text-3xl font-extrabold text-accent mb-2 stat-number">
+                                <i class="fas fa-users text-2xl mr-2"></i> 10K+
+                            </div>
+                            <p class="text-sm font-semibold uppercase tracking-wider text-gray">Happy Customers</p>
+                        </div>
+                        <div class="stat-item">
+                            <div class="flex items-center text-3xl font-extrabold text-accent mb-2 stat-number">
+                                <i class="fas fa-shipping-fast text-2xl mr-2"></i> 50+
+                            </div>
+                            <p class="text-sm font-semibold uppercase tracking-wider text-gray">States Served</p>
+                        </div>
+                        <div class="stat-item">
+                            <div class="flex items-center text-3xl font-extrabold text-accent mb-2 stat-number">
+                                <i class="fas fa-medal text-2xl mr-2"></i> 5+
+                            </div>
+                            <p class="text-sm font-semibold uppercase tracking-wider text-gray">Years of Excellence</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#"
+                            class="px-8 py-4 bg-gradient-to-r from-accent to-amber-500 text-primary font-semibold uppercase tracking-wider rounded shadow transition-all hover:-translate-y-1 hover:shadow-lg">Our
+                            Story</a>
+                        <a href="#contact"
+                            class="px-8 py-4 border-2 border-accent text-primary font-semibold uppercase tracking-wider rounded shadow transition-all hover:bg-gradient-to-r hover:from-accent/10 hover:to-amber-500/10 hover:-translate-y-1 hover:shadow-lg">Contact
+                            Us</a>
+                    </div>
+                </div>
+
+                <div
+                    class="lg:col-span-5 relative opacity-0 transform -translate-x-12 transition-all duration-1000 about-image">
+                    <img src="about.png" alt="Sikhest Performance Team"
+                        class="w-full h-auto rounded-lg shadow-xl z-10 relative">
+                    <div
+                        class="absolute -top-6 -left-6 w-full h-full bg-gradient-to-r from-accent to-amber-500 rounded-lg opacity-50 z-0">
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 w-3/5 h-3/5 bg-dot-pattern z-0 opacity-10"></div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Why Choose Us -->
-    <section class="why-us section">
-        <div class="container">
-            <h2 class="section-title fade-up">Why Choose Sikhest Performance</h2>
-            <div class="features-container">
+    <section class="py-24 bg-primary text-white relative">
+        <div class="absolute inset-0 bg-tire-pattern opacity-5 animate-[bgScroll_30s_linear_infinite]"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h2
+                class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 why-us-title text-white">
+                Why <span
+                    class="text-accent relative inline-block after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-full after:h-1 after:bg-gradient-to-r after:from-accent after:to-amber-500 after:rounded">Choose
+                    Us</span>
+            </h2>
+            <p
+                class="text-center max-w-3xl mx-auto text-lg leading-relaxed text-white/80 mb-16 opacity-0 transform translate-y-6 transition-all duration-1000 delay-100 why-us-desc">
+                At Sikhest Performance, we stand apart through our commitment to quality, service, and community. Here's
+                what makes us different:
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Feature 1 -->
-                <div class="feature-box fade-up">
-                    <div class="feature-icon">
+                <div
+                    class="bg-white/5 rounded-lg p-8 text-center transition-all duration-500 hover:-translate-y-4 hover:bg-white/8 relative overflow-hidden shadow-xl opacity-0 transform translate-y-10 feature-box">
+                    <div
+                        class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-accent to-amber-500 transition-all duration-700 feature-line">
+                    </div>
+                    <div class="text-5xl text-accent mb-6 transition-all duration-300 inline-block feature-icon">
                         <i class="fas fa-shipping-fast"></i>
                     </div>
-                    <h3 class="feature-title">Nationwide Shipping</h3>
-                    <p class="feature-desc">Fast and reliable shipping to your doorstep, anywhere in the USA.</p>
+                    <h3 class="text-xl font-bold mb-4 relative z-10">Nationwide Shipping</h3>
+                    <p class="text-white/80 leading-relaxed relative z-10">Fast, reliable shipping to your doorstep
+                        anywhere in the USA, with tracking and delivery updates every step of the way.</p>
                 </div>
 
                 <!-- Feature 2 -->
-                <div class="feature-box fade-up">
-                    <div class="feature-icon">
+                <div
+                    class="bg-white/5 rounded-lg p-8 text-center transition-all duration-500 hover:-translate-y-4 hover:bg-white/8 relative overflow-hidden shadow-xl opacity-0 transform translate-y-10 feature-box">
+                    <div
+                        class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-accent to-amber-500 transition-all duration-700 feature-line">
+                    </div>
+                    <div class="text-5xl text-accent mb-6 transition-all duration-300 inline-block feature-icon">
                         <i class="fas fa-tags"></i>
                     </div>
-                    <h3 class="feature-title">Competitive Pricing</h3>
-                    <p class="feature-desc">We offer the best prices on premium quality automotive products.</p>
+                    <h3 class="text-xl font-bold mb-4 relative z-10">Competitive Pricing</h3>
+                    <p class="text-white/80 leading-relaxed relative z-10">Premium quality products at fair prices, with
+                        regular promotions and loyalty discounts for returning customers.</p>
                 </div>
 
                 <!-- Feature 3 -->
-                <div class="feature-box fade-up">
-                    <div class="feature-icon">
+                <div
+                    class="bg-white/5 rounded-lg p-8 text-center transition-all duration-500 hover:-translate-y-4 hover:bg-white/8 relative overflow-hidden shadow-xl opacity-0 transform translate-y-10 feature-box">
+                    <div
+                        class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-accent to-amber-500 transition-all duration-700 feature-line">
+                    </div>
+                    <div class="text-5xl text-accent mb-6 transition-all duration-300 inline-block feature-icon">
                         <i class="fas fa-headset"></i>
                     </div>
-                    <h3 class="feature-title">Exceptional Service</h3>
-                    <p class="feature-desc">Our team is dedicated to providing top-notch customer support.</p>
+                    <h3 class="text-xl font-bold mb-4 relative z-10">Expert Support</h3>
+                    <p class="text-white/80 leading-relaxed relative z-10">Our knowledgeable team provides personalized
+                        assistance to help you find the perfect products for your specific vehicle and needs.</p>
                 </div>
 
                 <!-- Feature 4 -->
-                <div class="feature-box fade-up">
-                    <div class="feature-icon">
+                <div
+                    class="bg-white/5 rounded-lg p-8 text-center transition-all duration-500 hover:-translate-y-4 hover:bg-white/8 relative overflow-hidden shadow-xl opacity-0 transform translate-y-10 feature-box">
+                    <div
+                        class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-accent to-amber-500 transition-all duration-700 feature-line">
+                    </div>
+                    <div class="text-5xl text-accent mb-6 transition-all duration-300 inline-block feature-icon">
                         <i class="fas fa-heart"></i>
                     </div>
-                    <h3 class="feature-title">Community First</h3>
-                    <p class="feature-desc">We're committed to giving back to the Punjabi and Sikh communities.</p>
+                    <h3 class="text-xl font-bold mb-4 relative z-10">Community First</h3>
+                    <p class="text-white/80 leading-relaxed relative z-10">We're committed to giving back to the Punjabi
+                        and Sikh communities through sponsorships, events, and charitable initiatives.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Testimonials -->
-    <section class="testimonials section">
-        <div class="container">
-            <h2 class="section-title fade-up">What Our Customers Say</h2>
-            <div class="testimonials-container">
+    <section id="testimonials" class="py-24 bg-light relative">
+        <div class="absolute inset-0 bg-quote-pattern opacity-3"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="mb-16 relative">
+                <h2
+                    class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 testimonial-title">
+                    What Our <span
+                        class="text-accent relative inline-block after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-full after:h-1 after:bg-gradient-to-r after:from-accent after:to-amber-500 after:rounded">Customers
+                        Say</span>
+                </h2>
+                <p
+                    class="text-center max-w-3xl mx-auto text-lg leading-relaxed text-gray mb-16 opacity-0 transform translate-y-6 transition-all duration-1000 delay-100 testimonial-desc">
+                    Don't just take our word for it. Hear from our satisfied customers about their experiences with
+                    Sikhest Performance products and service.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Testimonial 1 -->
-                <div class="testimonial-card fade-up">
-                    <p class="testimonial-content">The quality of tires I received from Sikhest Performance exceeded my
-                        expectations. Fast shipping and great customer service too!</p>
-                    <div class="testimonial-author">
-                        <img src="client1.jpg" alt="Customer" class="author-img">
-                        <div class="author-info">
-                            <h4>John D.</h4>
-                            <p>Verified Customer</p>
+                <div
+                    class="bg-white p-8 rounded-lg shadow-lg relative transition-all duration-500 hover:-translate-y-2 hover:shadow-xl flex flex-col h-full overflow-hidden opacity-0 transform translate-y-10 testimonial-card">
+                    <div class="absolute top-6 right-6 flex text-accent">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="italic text-gray leading-relaxed mb-8 relative z-10 testimonial-content">
+                        The quality of tires I received from Sikhest Performance exceeded my expectations. Not only was
+                        the shipping incredibly fast, but the customer service team went above and beyond to help me
+                        select the perfect fit for my truck. I'll definitely be a returning customer!
+                    </p>
+                    <div class="flex items-center mt-auto">
+                        <img src="client1.jpg" alt="John D."
+                            class="w-14 h-14 rounded-full object-cover mr-4 border-3 border-accent shadow-md transition-all duration-300">
+                        <div>
+                            <h4 class="font-bold">John D.</h4>
+                            <p class="text-accent text-sm font-semibold">Verified Customer</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Testimonial 2 -->
-                <div class="testimonial-card fade-up">
-                    <p class="testimonial-content">I've been buying wheels from them for years. Their prices are
-                        unbeatable and the quality is always top-notch. Highly recommended!</p>
-                    <div class="testimonial-author">
-                        <img src="client2.jpg" alt="Customer" class="author-img">
-                        <div class="author-info">
-                            <h4>Sarah M.</h4>
-                            <p>Verified Customer</p>
+                <div
+                    class="bg-white p-8 rounded-lg shadow-lg relative transition-all duration-500 hover:-translate-y-2 hover:shadow-xl flex flex-col h-full overflow-hidden opacity-0 transform translate-y-10 testimonial-card">
+                    <div class="absolute top-6 right-6 flex text-accent">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="italic text-gray leading-relaxed mb-8 relative z-10 testimonial-content">
+                        I've been buying wheels from Sikhest Performance for years. Their prices are unbeatable, the
+                        quality is consistently top-notch, and their knowledge of fitment is impressive. The new set of
+                        alloys transformed my car completely. Highly recommended for anyone looking for quality and
+                        value!
+                    </p>
+                    <div class="flex items-center mt-auto">
+                        <img src="client2.jpg" alt="Sarah M."
+                            class="w-14 h-14 rounded-full object-cover mr-4 border-3 border-accent shadow-md transition-all duration-300">
+                        <div>
+                            <h4 class="font-bold">Sarah M.</h4>
+                            <p class="text-accent text-sm font-semibold">Loyal Customer</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Testimonial 3 -->
-                <div class="testimonial-card fade-up">
-                    <p class="testimonial-content">The lift kit I purchased transformed my truck completely. Excellent
-                        product and the team was very helpful in selecting the right one for my needs.</p>
-                    <div class="testimonial-author">
-                        <img src="client3.jpg" alt="Customer" class="author-img">
-                        <div class="author-info">
-                            <h4>Mike T.</h4>
-                            <p>Verified Customer</p>
+                <div
+                    class="bg-white p-8 rounded-lg shadow-lg relative transition-all duration-500 hover:-translate-y-2 hover:shadow-xl flex flex-col h-full overflow-hidden opacity-0 transform translate-y-10 testimonial-card">
+                    <div class="absolute top-6 right-6 flex text-accent">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="italic text-gray leading-relaxed mb-8 relative z-10 testimonial-content">
+                        The lift kit I purchased transformed my truck completely. Installation was straightforward with
+                        the provided instructions, and the quality is evident in every component. Six months later, and
+                        everything is still performing flawlessly. The team was incredibly helpful in selecting the
+                        right kit.
+                    </p>
+                    <div class="flex items-center mt-auto">
+                        <img src="client3.jpg" alt="Mike T."
+                            class="w-14 h-14 rounded-full object-cover mr-4 border-3 border-accent shadow-md transition-all duration-300">
+                        <div>
+                            <h4 class="font-bold">Mike T.</h4>
+                            <p class="text-accent text-sm font-semibold">Verified Customer</p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-24 bg-light relative">
+        <div class="absolute inset-0 bg-pattern-lines opacity-3"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h2
+                class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 blog-title">
+                Latest <span
+                    class="text-accent relative inline-block after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-full after:h-1 after:bg-gradient-to-r after:from-accent after:to-amber-500 after:rounded">Blog
+                    Posts</span>
+            </h2>
+            <p
+                class="text-center max-w-3xl mx-auto text-lg leading-relaxed text-gray mb-16 opacity-0 transform translate-y-6 transition-all duration-1000 delay-100 blog-desc">
+                Stay updated with the latest automotive trends, product releases, and maintenance tips from our team of
+                experts.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Blog Post 1 -->
+                <div
+                    class="bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-xl flex flex-col h-full opacity-0 transform translate-y-10 blog-card">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="blog1.jpeg" alt="Choosing the Right Tires"
+                            class="w-full h-full object-cover transition-all duration-700 hover:scale-110">
+                        <div
+                            class="absolute top-4 left-4 bg-accent text-primary text-xs font-bold py-1 px-3 rounded shadow-sm">
+                            Mar 15, 2025</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <span class="text-xs text-accent font-semibold uppercase tracking-wider mb-2">Tires</span>
+                        <h3 class="text-xl font-bold mb-4 leading-tight transition-colors hover:text-accent">How to
+                            Choose the Right Tires for Your Driving Style</h3>
+                        <p class="text-gray text-sm mb-6 leading-relaxed flex-grow">
+                            Understanding the relationship between tire types and driving conditions is essential for
+                            optimizing your vehicle's performance and safety. This guide helps you navigate the options
+                            based on your specific needs.
+                        </p>
+                        <div class="flex items-center pt-4 border-t border-gray-light mt-auto">
+                            <img src="author1.png" alt="Gurpreet Singh"
+                                class="w-10 h-10 rounded-full object-cover mr-3">
+                            <span class="font-semibold text-sm">Gurpreet Singh</span>
+                            <a href="#"
+                                class="ml-auto text-accent font-semibold text-sm flex items-center hover:text-accent-dark transition-all">
+                                Read More <i
+                                    class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog Post 2 -->
+                <div
+                    class="bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-xl flex flex-col h-full opacity-0 transform translate-y-10 blog-card">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="blog2.jpeg" alt="Custom Wheels Guide"
+                            class="w-full h-full object-cover transition-all duration-700 hover:scale-110">
+                        <div
+                            class="absolute top-4 left-4 bg-accent text-primary text-xs font-bold py-1 px-3 rounded shadow-sm">
+                            Mar 8, 2025</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <span class="text-xs text-accent font-semibold uppercase tracking-wider mb-2">Wheels</span>
+                        <h3 class="text-xl font-bold mb-4 leading-tight transition-colors hover:text-accent">The
+                            Ultimate Guide to Custom Wheels: Style and Performance</h3>
+                        <p class="text-gray text-sm mb-6 leading-relaxed flex-grow">
+                            Custom wheels can dramatically transform your vehicle's appearance while potentially
+                            enhancing performance. This comprehensive guide covers everything from materials and
+                            finishes to sizing and fitment considerations.
+                        </p>
+                        <div class="flex items-center pt-4 border-t border-gray-light mt-auto">
+                            <img src="author2.png" alt="Jasvinder Kaur"
+                                class="w-10 h-10 rounded-full object-cover mr-3">
+                            <span class="font-semibold text-sm">Jasvinder Kaur</span>
+                            <a href="#"
+                                class="ml-auto text-accent font-semibold text-sm flex items-center hover:text-accent-dark transition-all">
+                                Read More <i
+                                    class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog Post 3 -->
+                <div
+                    class="bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-xl flex flex-col h-full opacity-0 transform translate-y-10 blog-card">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="blog3.jpeg" alt="Lift Kit Installation"
+                            class="w-full h-full object-cover transition-all duration-700 hover:scale-110">
+                        <div
+                            class="absolute top-4 left-4 bg-accent text-primary text-xs font-bold py-1 px-3 rounded shadow-sm">
+                            Feb 27, 2025</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <span class="text-xs text-accent font-semibold uppercase tracking-wider mb-2">Lift Kits</span>
+                        <h3 class="text-xl font-bold mb-4 leading-tight transition-colors hover:text-accent">5 Things to
+                            Know Before Installing a Lift Kit on Your Truck</h3>
+                        <p class="text-gray text-sm mb-6 leading-relaxed flex-grow">
+                            Installing a lift kit is a significant modification that affects multiple aspects of your
+                            vehicle's performance and handling. Before taking the plunge, consider these five critical
+                            factors to ensure a successful installation.
+                        </p>
+                        <div class="flex items-center pt-4 border-t border-gray-light mt-auto">
+                            <img src="author3.png" alt="Harjit Singh" class="w-10 h-10 rounded-full object-cover mr-3">
+                            <span class="font-semibold text-sm">Harjit Singh</span>
+                            <a href="#"
+                                class="ml-auto text-accent font-semibold text-sm flex items-center hover:text-accent-dark transition-all">
+                                Read More <i
+                                    class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="text-center mt-12 opacity-0 transform translate-y-6 transition-all duration-1000 delay-200 blog-btn">
+                <a href="#"
+                    class="inline-block px-8 py-4 bg-gradient-to-r from-accent to-amber-500 text-primary font-semibold uppercase tracking-wider rounded shadow transition-all hover:-translate-y-1 hover:shadow-lg">View
+                    All Posts</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-24 bg-light relative">
+        <div class="absolute inset-0 bg-pattern-lines opacity-3"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h2
+                class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 faq-title">
+                Frequently <span
+                    class="text-accent relative inline-block after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-full after:h-1 after:bg-gradient-to-r after:from-accent after:to-amber-500 after:rounded">Asked
+                    Questions</span>
+            </h2>
+            <p
+                class="text-center max-w-3xl mx-auto text-lg leading-relaxed text-gray mb-16 opacity-0 transform translate-y-6 transition-all duration-1000 delay-100 faq-desc">
+                Find answers to common questions about our products, shipping, installation, and more. Can't find what
+                you're
+                looking for? Contact our team for personalized assistance.
+            </p>
+    
+            <div class="max-w-4xl mx-auto">
+                <!-- FAQ Accordion -->
+                <div class="space-y-6 opacity-0 transform translate-y-10 faq-items">
+                    <!-- FAQ Item 1 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 faq-item">
+                        <button
+                            class="flex items-center justify-between w-full px-8 py-6 text-left transition-colors bg-white hover:bg-gray-50 focus:outline-none faq-toggle">
+                            <span class="text-lg font-bold">How does shipping work? How long will it take to receive my
+                                order?</span>
+                            <span class="text-accent">
+                                <i class="fas fa-plus faq-plus"></i>
+                                <i class="fas fa-minus faq-minus hidden"></i>
+                            </span>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
+                            <div class="px-8 py-6 border-t border-gray-light text-gray">
+                                <p class="mb-3">We offer nationwide shipping on all our products. Standard shipping
+                                    typically
+                                    takes 3-5 business days after your order has been processed.</p>
+                                <p class="mb-3">For heavy items like wheels and lift kits, we use freight shipping which may
+                                    take 5-7 business days. You'll receive tracking information via email once your order
+                                    has
+                                    shipped.</p>
+                                <p>For customers in California, we also offer expedited 1-2 day shipping options at
+                                    checkout.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- FAQ Item 2 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 faq-item">
+                        <button
+                            class="flex items-center justify-between w-full px-8 py-6 text-left transition-colors bg-white hover:bg-gray-50 focus:outline-none faq-toggle">
+                            <span class="text-lg font-bold">How do I know which products will fit my vehicle?</span>
+                            <span class="text-accent">
+                                <i class="fas fa-plus faq-plus"></i>
+                                <i class="fas fa-minus faq-minus hidden"></i>
+                            </span>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
+                            <div class="px-8 py-6 border-t border-gray-light text-gray">
+                                <p class="mb-3">Our website features a vehicle fitment tool that allows you to enter your
+                                    vehicle's year, make, model, and trim to see compatible products.</p>
+                                <p class="mb-3">For tires and wheels, you can also search by size if you know your current
+                                    specifications.</p>
+                                <p>If you're unsure about compatibility, our team of experts is available to help. Contact
+                                    us
+                                    with your vehicle details, and we'll assist you in finding the perfect fit.</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- FAQ Item 3 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 faq-item">
+                        <button
+                            class="flex items-center justify-between w-full px-8 py-6 text-left transition-colors bg-white hover:bg-gray-50 focus:outline-none faq-toggle">
+                            <span class="text-lg font-bold">Do you offer installation services?</span>
+                            <span class="text-accent">
+                                <i class="fas fa-plus faq-plus"></i>
+                                <i class="fas fa-minus faq-minus hidden"></i>
+                            </span>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
+                            <div class="px-8 py-6 border-t border-gray-light text-gray">
+                                <p class="mb-3">For customers in the Stockton, CA area, we offer full installation services
+                                    at our facility. You can book an installation appointment during checkout.</p>
+                                <p class="mb-3">For customers outside our local area, we have a network of recommended
+                                    installers across the country. Contact us for referrals in your area.</p>
+                                <p>We also provide detailed installation guides for DIY installations, and our customer
+                                    service team is available to assist with any questions during the process.</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- FAQ Item 4 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 faq-item">
+                        <button
+                            class="flex items-center justify-between w-full px-8 py-6 text-left transition-colors bg-white hover:bg-gray-50 focus:outline-none faq-toggle">
+                            <span class="text-lg font-bold">What is your return and warranty policy?</span>
+                            <span class="text-accent">
+                                <i class="fas fa-plus faq-plus"></i>
+                                <i class="fas fa-minus faq-minus hidden"></i>
+                            </span>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
+                            <div class="px-8 py-6 border-t border-gray-light text-gray">
+                                <p class="mb-3">We offer a 30-day return policy for most items in new, unused condition with
+                                    original packaging. Custom or special-order items may have different return terms.</p>
+                                <p class="mb-3">All products come with the manufacturer's warranty, which varies by product.
+                                    Warranty information is available on each product page.</p>
+                                <p>In addition, we offer our Sikhest Performance Protection Plan for select products, which
+                                    extends coverage beyond the manufacturer's warranty. Details are available during
+                                    checkout.</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- FAQ Item 5 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 faq-item">
+                        <button
+                            class="flex items-center justify-between w-full px-8 py-6 text-left transition-colors bg-white hover:bg-gray-50 focus:outline-none faq-toggle">
+                            <span class="text-lg font-bold">Do you offer financing options?</span>
+                            <span class="text-accent">
+                                <i class="fas fa-plus faq-plus"></i>
+                                <i class="fas fa-minus faq-minus hidden"></i>
+                            </span>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
+                            <div class="px-8 py-6 border-t border-gray-light text-gray">
+                                <p class="mb-3">Yes, we offer several financing options to make your purchase more
+                                    affordable. During checkout, you can select from payment plans through our partners.</p>
+                                <p class="mb-3">We offer 0% interest if paid in full within 6 months for orders over $500.
+                                </p>
+                                <p>For commercial customers, we also offer net-30 terms with approved credit. Contact our
+                                    business services team for more information.</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- FAQ Item 6 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 faq-item">
+                        <button
+                            class="flex items-center justify-between w-full px-8 py-6 text-left transition-colors bg-white hover:bg-gray-50 focus:outline-none faq-toggle">
+                            <span class="text-lg font-bold">How do I track my order?</span>
+                            <span class="text-accent">
+                                <i class="fas fa-plus faq-plus"></i>
+                                <i class="fas fa-minus faq-minus hidden"></i>
+                            </span>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
+                            <div class="px-8 py-6 border-t border-gray-light text-gray">
+                                <p class="mb-3">Once your order ships, you'll receive a tracking number via email. You can
+                                    also track your order by logging into your account on our website.</p>
+                                <p class="mb-3">For orders with multiple items, they may ship separately depending on
+                                    availability and shipping methods.</p>
+                                <p>If you haven't received tracking information within 2 business days of your order
+                                    confirmation, please contact our customer service team.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div
+                    class="text-center mt-12 opacity-0 transform translate-y-6 transition-all duration-1000 delay-200 faq-cta">
+                    <p class="mb-6 text-gray text-lg">Don't see your question answered here?</p>
+                    <a href="#contact"
+                        class="inline-block px-8 py-4 bg-gradient-to-r from-accent to-amber-500 text-primary font-semibold uppercase tracking-wider rounded shadow transition-all hover:-translate-y-1 hover:shadow-lg">
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-light relative">
+        <div class="absolute inset-0 bg-contact-pattern opacity-3"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h2
+                class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 contact-title">
+                Get In <span
+                    class="text-accent relative inline-block after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-full after:h-1 after:bg-gradient-to-r after:from-accent after:to-amber-500 after:rounded">Touch</span>
+            </h2>
+            <p
+                class="text-center max-w-3xl mx-auto text-lg leading-relaxed text-gray mb-16 opacity-0 transform translate-y-6 transition-all duration-1000 delay-100 contact-desc">
+                Have questions about our products or services? Our team is here to help. Reach out to us through any of
+                the channels below.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Contact Info -->
+                <div
+                    class="lg:col-span-5 bg-primary text-white p-10 rounded-lg shadow-xl opacity-0 transform translate-x-12 transition-all duration-1000 contact-info">
+                    <div class="relative z-10">
+                        <h3
+                            class="text-2xl font-bold mb-8 relative after:content-[''] after:absolute after:bottom-[-10px] after:left-0 after:w-12 after:h-1 after:bg-accent after:rounded">
+                            Contact Information</h3>
+                        <p class="mb-8 text-white/80 leading-relaxed">We value your inquiries and feedback. Feel free to
+                            reach out through any of the following channels, and our team will respond promptly to
+                            assist you.</p>
+
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div
+                                    class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-accent mr-4 transition-all duration-500 hover:bg-accent hover:text-primary hover:rotate-[360deg]">
+                                    <i class="fas fa-map-marker-alt text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Our Location</h4>
+                                    <p class="text-white/80">Based in Stockton, California<br>Shipping throughout USA
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div
+                                    class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-accent mr-4 transition-all duration-500 hover:bg-accent hover:text-primary hover:rotate-[360deg]">
+                                    <i class="fas fa-phone-alt text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Phone Number</h4>
+                                    <p class="text-white/80"><a href="tel:+18005551234"
+                                            class="hover:text-accent transition-colors">(800) 555-1234</a></p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div
+                                    class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-accent mr-4 transition-all duration-500 hover:bg-accent hover:text-primary hover:rotate-[360deg]">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Email Address</h4>
+                                    <p class="text-white/80"><a href="mailto:info@sikhestperformance.com"
+                                            class="hover:text-accent transition-colors">info@sikhestperformance.com</a>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div
+                                    class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-accent mr-4 transition-all duration-500 hover:bg-accent hover:text-primary hover:rotate-[360deg]">
+                                    <i class="fas fa-clock text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Working Hours</h4>
+                                    <p class="text-white/80">Monday - Friday: 9:00 AM - 5:00 PM PST<br>Saturday: 10:00
+                                        AM - 2:00 PM PST</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 mt-10">
+                            <a href="#"
+                                class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-accent hover:text-primary hover:-translate-y-1">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#"
+                                class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-accent hover:text-primary hover:-translate-y-1">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#"
+                                class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-accent hover:text-primary hover:-translate-y-1">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#"
+                                class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-accent hover:text-primary hover:-translate-y-1">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a href="#"
+                                class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-accent hover:text-primary hover:-translate-y-1">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 bg-tire-pattern opacity-5"></div>
+                </div>
+
+                <!-- Contact Form -->
+                <div
+                    class="lg:col-span-7 bg-white p-10 rounded-lg shadow-lg opacity-0 transform -translate-x-12 transition-all duration-1000 contact-form">
+                    <h3 class="text-2xl font-bold mb-2">Send Us a Message</h3>
+                    <p class="text-gray mb-8">Have a specific question or request? Fill out the form below, and we'll
+                        get back to you as soon as possible.</p>
+
+                    <form id="contactForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="form-group">
+                            <input type="text"
+                                class="w-full p-4 border border-gray-light rounded bg-gray-50 focus:outline-none focus:ring-2 focus:ring-accent focus:bg-white transition-all"
+                                placeholder="Your Name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email"
+                                class="w-full p-4 border border-gray-light rounded bg-gray-50 focus:outline-none focus:ring-2 focus:ring-accent focus:bg-white transition-all"
+                                placeholder="Your Email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text"
+                                class="w-full p-4 border border-gray-light rounded bg-gray-50 focus:outline-none focus:ring-2 focus:ring-accent focus:bg-white transition-all"
+                                placeholder="Your Phone">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text"
+                                class="w-full p-4 border border-gray-light rounded bg-gray-50 focus:outline-none focus:ring-2 focus:ring-accent focus:bg-white transition-all"
+                                placeholder="Subject">
+                        </div>
+
+                        <div class="form-group md:col-span-2">
+                            <textarea
+                                class="w-full p-4 border border-gray-light rounded bg-gray-50 focus:outline-none focus:ring-2 focus:ring-accent focus:bg-white transition-all min-h-[150px]"
+                                placeholder="Your Message" required></textarea>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <button type="submit"
+                                class="px-8 py-4 bg-gradient-to-r from-accent to-amber-500 text-primary font-semibold uppercase tracking-wider rounded transition-all hover:-translate-y-1 hover:shadow-lg inline-flex items-center">
+                                Send Message <i class="fas fa-paper-plane ml-2"></i>
+                            </button>
+                        </div>
+
+                        <div id="formMessage" class="md:col-span-2 p-4 rounded text-sm hidden"></div>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Call to Action -->
-    <section class="cta">
-        <div class="container">
-            <h2 class="cta-title fade-up">Ready to Upgrade Your Ride?</h2>
-            <p class="cta-text fade-up">Browse our premium selection of tires, wheels, lift kits, and more. Fast
-                shipping and unbeatable prices!</p>
-            <a href="#" class="btn cta-btn fade-up">Shop Now</a>
+    <section class="py-20 bg-gradient-to-r from-accent to-amber-500 text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-tire-pattern opacity-5 animate-[bgScroll_30s_linear_infinite]"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h2
+                class="text-4xl md:text-5xl font-extrabold text-primary mb-6 opacity-0 transform translate-y-6 transition-all duration-1000 cta-title">
+                Ready to Upgrade Your Ride?</h2>
+            <p
+                class="max-w-2xl mx-auto text-xl text-primary/90 mb-10 opacity-0 transform translate-y-6 transition-all duration-1000 delay-100 cta-text">
+                Explore our premium selection of tires, wheels, lift kits, and performance parts. Enjoy fast shipping,
+                competitive prices, and exceptional customer service.
+            </p>
+            <div
+                class="flex flex-wrap justify-center gap-6 opacity-0 transform translate-y-6 transition-all duration-1000 delay-200 cta-buttons">
+                <a href="#"
+                    class="px-8 py-4 bg-primary text-white font-semibold uppercase tracking-wider rounded shadow-lg transition-all hover:-translate-y-1 hover:bg-gray-dark hover:shadow-xl">Shop
+                    Now</a>
+                <a href="#contact"
+                    class="px-8 py-4 border-2 border-primary text-primary font-semibold uppercase tracking-wider rounded shadow-lg transition-all hover:-translate-y-1 hover:bg-primary/10 hover:shadow-xl">Contact
+                    Us</a>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-container">
+    <footer class="bg-primary text-white pt-20 relative">
+        <div class="absolute inset-0 bg-tire-pattern opacity-3"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 <!-- About -->
-                <div class="footer-about">
-                    <a href="#" class="logo">
-                        <img src="logo.jpg" alt="SIKHEST PERFORMANCE"
-                            style="margin-left:70px; width:140px; height: 1em; vertical-align: middle;">
+                <div class="flex flex-col">
+                    <a href="#" class="inline-block text-accent font-bold text-2xl mb-6">
+                        <img src="logo.png" alt="SIKHEST PERFORMANCE" class="w-36 h-auto mb-2">
                     </a>
-
-                    <br>
-                    <br>
-                    <br>
-                    <p>Founded by first-generation Punjabi brothers in Stockton, CA, we deliver high-quality automotive
-                        products at competitive prices with nationwide shipping.</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    <p class="text-white/80 leading-relaxed mb-6">
+                        Founded by first-generation Punjabi brothers in Stockton, CA, we deliver high-quality automotive
+                        products at competitive prices with nationwide shipping. Our mission is to provide exceptional
+                        value and service to every customer.
+                    </p>
+                    <div class="flex gap-4 mt-auto">
+                        <a href="#"
+                            class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-accent hover:text-primary hover:-translate-y-1">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-accent hover:text-primary hover:-translate-y-1">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-accent hover:text-primary hover:-translate-y-1">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-accent hover:text-primary hover:-translate-y-1">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-accent hover:text-primary hover:-translate-y-1">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
                     </div>
                 </div>
 
                 <!-- Quick Links -->
-                <div class="footer-links">
-                    <h3 class="footer-title">Quick Links</h3>
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#" class="tire-btn">Shop Tires</a></li>
-                        <li><a href="#" class="wheel-btn">Shop Wheels</a></li>
-                        <li><a href="#">Lift Kits</a></li>
-                        <li><a href="#">Suspension Systems</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                <div>
+                    <h3
+                        class="text-xl font-bold mb-6 relative after:content-[''] after:absolute after:bottom-[-10px] after:left-0 after:w-12 after:h-1 after:bg-accent after:rounded">
+                        Quick Links</h3>
+                    <ul class="space-y-4">
+                        <li
+                            class="pl-5 relative before:content-['\f105'] before:font-['Font_Awesome_6_Free'] before:font-bold before:absolute before:left-0 before:top-0 before:text-accent before:transition-all">
+                            <a href="#" class="text-white/80 transition-all hover:text-accent hover:pl-1">Home</a>
+                        </li>
+                        <li
+                            class="pl-5 relative before:content-['\f105'] before:font-['Font_Awesome_6_Free'] before:font-bold before:absolute before:left-0 before:top-0 before:text-accent before:transition-all">
+                            <a href="#about" class="text-white/80 transition-all hover:text-accent hover:pl-1">About
+                                Us</a>
+                        </li>
+                        <li
+                            class="pl-5 relative before:content-['\f105'] before:font-['Font_Awesome_6_Free'] before:font-bold before:absolute before:left-0 before:top-0 before:text-accent before:transition-all">
+                            <a href="#" class="tire-btn text-white/80 transition-all hover:text-accent hover:pl-1">Shop
+                                Tires</a>
+                        </li>
+                        <li
+                            class="pl-5 relative before:content-['\f105'] before:font-['Font_Awesome_6_Free'] before:font-bold before:absolute before:left-0 before:top-0 before:text-accent before:transition-all">
+                            <a href="#" class="wheel-btn text-white/80 transition-all hover:text-accent hover:pl-1">Shop
+                                Wheels</a>
+                        </li>
+                        <li
+                            class="pl-5 relative before:content-['\f105'] before:font-['Font_Awesome_6_Free'] before:font-bold before:absolute before:left-0 before:top-0 before:text-accent before:transition-all">
+                            <a href="#" class="text-white/80 transition-all hover:text-accent hover:pl-1">Lift Kits</a>
+                        </li>
+                        <li
+                            class="pl-5 relative before:content-['\f105'] before:font-['Font_Awesome_6_Free'] before:font-bold before:absolute before:left-0 before:top-0 before:text-accent before:transition-all">
+                            <a href="#blog" class="text-white/80 transition-all hover:text-accent hover:pl-1">Blog</a>
+                        </li>
+                        <li
+                            class="pl-5 relative before:content-['\f105'] before:font-['Font_Awesome_6_Free'] before:font-bold before:absolute before:left-0 before:top-0 before:text-accent before:transition-all">
+                            <a href="#contact" class="text-white/80 transition-all hover:text-accent hover:pl-1">Contact
+                                Us</a>
+                        </li>
                     </ul>
                 </div>
 
                 <!-- Contact -->
-                <div class="footer-contact">
-                    <h3 class="footer-title">Contact Us</h3>
-                    <ul>
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i>
-                            <p>Based in Northern California<br>Shipping throughout USA</p>
+                <div>
+                    <h3
+                        class="text-xl font-bold mb-6 relative after:content-[''] after:absolute after:bottom-[-10px] after:left-0 after:w-12 after:h-1 after:bg-accent after:rounded">
+                        Contact Us</h3>
+                    <ul class="space-y-4">
+                        <li class="flex">
+                            <i class="fas fa-map-marker-alt text-accent mr-4 mt-1"></i>
+                            <p class="text-white/80 leading-relaxed">Based in Stockton, California<br>Shipping
+                                throughout USA</p>
                         </li>
-                        <li>
-                            <i class="fas fa-clock"></i>
-                            <p>Monday - Friday: 9:00 AM - 4:00 PM PST</p>
+                        <li class="flex">
+                            <i class="fas fa-phone-alt text-accent mr-4 mt-1"></i>
+                            <p class="text-white/80">(800) 555-1234</p>
                         </li>
-                        <li>
-                            <i class="fas fa-envelope"></i>
-                            <p>info@sikhestperformance.com</p>
+                        <li class="flex">
+                            <i class="fas fa-envelope text-accent mr-4 mt-1"></i>
+                            <p class="text-white/80">info@sikhestperformance.com</p>
+                        </li>
+                        <li class="flex">
+                            <i class="fas fa-clock text-accent mr-4 mt-1"></i>
+                            <p class="text-white/80 leading-relaxed">Monday - Friday: 9:00 AM - 5:00 PM PST</p>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Newsletter -->
-                <div class="footer-newsletter">
-                    <h3 class="footer-title">Newsletter</h3>
-                    <p>Subscribe to our newsletter to receive updates on new products, special offers, and more.</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Your Email Address">
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                <!-- Newsletter -->
+                <div>
+                    <h3
+                        class="text-xl font-bold mb-6 relative after:content-[''] after:absolute after:bottom-[-10px] after:left-0 after:w-12 after:h-1 after:bg-accent after:rounded">
+                        Newsletter</h3>
+                    <p class="text-white/80 leading-relaxed mb-6">Subscribe to our newsletter to receive updates on new
+                        products,
+                        special offers, and automotive tips.</p>
+
+                    <form class="relative">
+                        <input type="email" placeholder="Your Email Address" required
+                            class="w-full py-4 px-5 pr-16 bg-white/5 border border-white/10 rounded text-white focus:outline-none focus:border-accent focus:bg-white/10 transition-all">
+                        <button type="submit"
+                            class="absolute right-1 top-1 bottom-1 bg-accent text-primary aspect-square flex items-center justify-center rounded hover:bg-accent-dark transition-all hover:scale-105">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
                     </form>
+
+                    <div class="mt-8">
+                        <h4 class="text-base mb-3 text-white/80">We Accept</h4>
+                        <div class="flex gap-3">
+                            <i class="fab fa-cc-visa text-3xl text-white/70"></i>
+                            <i class="fab fa-cc-mastercard text-3xl text-white/70"></i>
+                            <i class="fab fa-cc-amex text-3xl text-white/70"></i>
+                            <i class="fab fa-cc-discover text-3xl text-white/70"></i>
+                            <i class="fab fa-cc-paypal text-3xl text-white/70"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="footer-bottom">
-            <div class="container">
-                <p>&copy; 2025 Sikhest Performance. All Rights Reserved. | Built Sikh Tough</p>
+        <div class="border-t border-white/10 py-6 mt-12">
+            <div class="container mx-auto px-6">
+                <p class="text-center text-white/70">&copy; 2025 <span class="text-accent font-semibold">Sikhest
+                        Performance</span>. All Rights Reserved. | Built Sikh Tough</p>
             </div>
         </div>
     </footer>
 
     <!-- Modal Popup for iFrame -->
-    <div class="modal-overlay">
-        <div class="modal-container">
-            <div class="modal-close"><i class="fas fa-times"></i></div>
-            <iframe id="iframeTB" class="modal-iframe plugin" src="" title="Iframe TB E-commerce"
+    <div id="modalOverlay"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center z-50 opacity-0 invisible transition-all duration-300">
+        <div
+            class="bg-white w-[90%] max-w-6xl h-[85vh] rounded-lg relative overflow-hidden transform scale-90 transition-all duration-300">
+            <div id="modalClose"
+                class="absolute top-5 right-5 w-12 h-12 bg-accent text-primary rounded-full flex items-center justify-center cursor-pointer z-10 shadow-md hover:bg-primary hover:text-accent transition-all duration-300 hover:rotate-90">
+                <i class="fas fa-times text-xl"></i>
+            </div>
+    
+            <!-- Loading spinner -->
+            <div id="iframeLoader" class="absolute inset-0 flex items-center justify-center bg-white z-5">
+                <div class="text-center">
+                    <div
+                        class="inline-block w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin mb-4">
+                    </div>
+                    <p class="text-gray font-medium">Loading Tire Selection Tool...</p>
+                </div>
+            </div>
+    
+            <iframe id="iframeTB" class="w-full h-full border-none" src="about:blank" title="Iframe TB E-commerce"
                 allow="geolocation 'self' https://app.tirebase.io"></iframe>
         </div>
     </div>
 
     <!-- Scripts -->
     <script>
-        // Mobile Menu Toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
+        document.addEventListener('DOMContentLoaded', function () {
+            // Animate hero content on load
+            setTimeout(() => {
+                document.getElementById('hero-content').classList.remove('opacity-0', 'translate-y-6');
+            }, 300);
 
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
+            // Initialize all functionality
+            initializeScrollAnimations();
+            initializeModalPopup();
+            initializeBackToTop();
+            initializeContactForm();
+            initializeProductHovers();
+            initializeFAQAccordion();
         });
 
-        document.querySelectorAll('.nav-link').forEach(n =>
-            n.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-            })
-        );
+        // Scroll Animations
+        function initializeScrollAnimations() {
+            const animatedElements = {
+                '.category-title, .category-desc': {},
+                '.category-card': { threshold: 0.1, delay: true },
+                '.product-title, .product-desc': {},
+                '.product-card': { threshold: 0.1, delay: true },
+                '.about-content, .about-image': { threshold: 0.2 },
+                '.why-us-title, .why-us-desc': {},
+                '.feature-box': { threshold: 0.1, delay: true },
+                '.testimonial-title, .testimonial-desc': {},
+                '.testimonial-card': { threshold: 0.1, delay: true },
+                '.blog-title, .blog-desc': {},
+                '.blog-card, .blog-btn': { threshold: 0.1, delay: true },
+                '.faq-title, .faq-desc': {}, 
+                '.faq-items, .faq-cta': { threshold: 0.1, delay: true },
+                '.contact-title, .contact-desc': {},
+                '.contact-info, .contact-form': { threshold: 0.2 },
+                '.cta-title, .cta-text, .cta-buttons': { threshold: 0.3 }
+            };
 
-        // Sticky Header
-        window.addEventListener('scroll', function () {
-            const header = document.querySelector('header');
-            header.classList.toggle('scrolled', window.scrollY > 0);
-        });
+            // Create observers for all element groups
+            for (const [selector, options] of Object.entries(animatedElements)) {
+                const elements = document.querySelectorAll(selector);
+                if (!elements.length) continue;
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry, index) => {
+                        if (entry.isIntersecting) {
+                            if (options.delay) {
+                                setTimeout(() => {
+                                    entry.target.classList.remove('opacity-0', 'translate-y-10', 'translate-x-12', '-translate-x-12');
+                                }, index * 100);
+                            } else {
+                                entry.target.classList.remove('opacity-0', 'translate-y-6', 'translate-x-12', '-translate-x-12');
+                            }
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: options.threshold || 0.15,
+                    rootMargin: '-50px'
+                });
+
+                elements.forEach(element => {
+                    observer.observe(element);
+                });
+            }
+
+            // Feature line animation
+            document.querySelectorAll('.feature-box').forEach(box => {
+                box.addEventListener('mouseenter', () => {
+                    box.querySelector('.feature-line').style.width = '100%';
+                    box.querySelector('.feature-line').style.opacity = '0.1';
+                });
+
+                box.addEventListener('mouseleave', () => {
+                    box.querySelector('.feature-line').style.width = '5px';
+                    box.querySelector('.feature-line').style.opacity = '1';
+                });
+            });
+        }
 
         // Modal Popup for iFrame
-        const modalOverlay = document.querySelector('.modal-overlay');
-        const modalClose = document.querySelector('.modal-close');
-        const tireButtons = document.querySelectorAll('.tire-btn');
-        const wheelButtons = document.querySelectorAll('.wheel-btn');
-        const iframeTB = document.getElementById('iframeTB');
+            function initializeModalPopup() {
+                    const modalOverlay = document.getElementById('modalOverlay');
+                    const modalClose = document.getElementById('modalClose');
+                    const tireButtons = document.querySelectorAll('.tire-btn');
+                    const wheelButtons = document.querySelectorAll('.wheel-btn');
+                    const iframeTB = document.getElementById('iframeTB');
+                    const iframeLoader = document.getElementById('iframeLoader');
 
-        function openModal() {
-            modalOverlay.classList.add('active');
+                    if (!modalOverlay || !modalClose) return;
 
-            // Set iframe src
-            if (iframeTB.src === '') {
-                const parentQueries = window.location.search.substring(1);
-                iframeTB.src = `https://app.tirebase.io/ecommerce?eci=mM83w4ysuM&mini=false&${parentQueries}`;
-            }
-        }
+                    function openModal() {
+                        // Show modal immediately
+                        modalOverlay.classList.remove('invisible', 'opacity-0');
+                        modalOverlay.classList.add('opacity-100', 'visible');
+                        modalOverlay.querySelector('div').classList.remove('scale-90');
+                        modalOverlay.querySelector('div').classList.add('scale-100');
+                        document.body.style.overflow = 'hidden';
 
-        function closeModal() {
-            modalOverlay.classList.remove('active');
-        }
+                        // Show loader
+                        if (iframeLoader) iframeLoader.style.display = 'flex';
 
-        tireButtons.forEach(button => {
-            button.addEventListener('click', function (e) {
-                e.preventDefault();
-                openModal();
-            });
-        });
+                        // Set iframe src
+                        if (iframeTB) {
+                            const parentQueries = window.location.search.substring(1);
+                            iframeTB.src = `https://app.tirebase.io/ecommerce?eci=mM83w4ysuM&mini=false&showResults=true&${parentQueries}`;
 
-        wheelButtons.forEach(button => {
-            button.addEventListener('click', function (e) {
-                e.preventDefault();
-                openModal();
-            });
-        });
+                            // Hide loader when iframe loads
+                            iframeTB.onload = function () {
+                                if (iframeLoader) {
+                                    // Slight delay to ensure iframe content is visible
+                                    setTimeout(() => {
+                                        iframeLoader.style.opacity = '0';
+                                        setTimeout(() => {
+                                            iframeLoader.style.display = 'none';
+                                            iframeLoader.style.opacity = '1';
+                                        }, 300);
+                                    }, 500);
+                                }
+                            };
+                        }
+                    }
 
-        modalClose.addEventListener('click', closeModal);
-        modalOverlay.addEventListener('click', function (e) {
-            if (e.target === modalOverlay) {
-                closeModal();
-            }
-        });
+                function closeModal() {
+                    console.log("Closing modal");
+                    modalOverlay.classList.remove('opacity-100', 'visible');
+                    modalOverlay.classList.add('invisible', 'opacity-0');
+                    modalOverlay.querySelector('div').classList.remove('scale-100');
+                    modalOverlay.querySelector('div').classList.add('scale-90');
+                    document.body.style.overflow = '';
 
-        // Simpler Scroll Animation Function
-        function handleScrollAnimations() {
-            const animatedElements = document.querySelectorAll('.fade-up, .fade-left, .fade-right, .fade-in');
+                    // Clear iframe src when closing to prevent potential memory issues
+                    if (iframeTB) {
+                        iframeTB.src = 'about:blank';
+                    }
+                }
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('fade-active');
-                        observer.unobserve(entry.target);
+                tireButtons.forEach((button, index) => {
+                    console.log(`Adding click listener to tire button ${index}`);
+                    button.addEventListener('click', function (e) {
+                        console.log("Tire button clicked");
+                        e.preventDefault();
+                        openModal();
+                    });
+                });
+
+                wheelButtons.forEach((button, index) => {
+                    console.log(`Adding click listener to wheel button ${index}`);
+                    button.addEventListener('click', function (e) {
+                        console.log("Wheel button clicked");
+                        e.preventDefault();
+                        openModal();
+                    });
+                });
+
+                modalClose.addEventListener('click', closeModal);
+
+                modalOverlay.addEventListener('click', function (e) {
+                    if (e.target === modalOverlay) {
+                        closeModal();
                     }
                 });
-            }, {
-                root: null,
-                threshold: 0.1,
-                rootMargin: '-50px'
+
+                // Close modal with Escape key
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape' && !modalOverlay.classList.contains('invisible')) {
+                        closeModal();
+                    }
+                });
+            }
+
+        // Back to Top Button
+        function initializeBackToTop() {
+            const backToTopButton = document.getElementById('backToTop');
+            if (!backToTopButton) return;
+
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 500) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                }
             });
 
-            animatedElements.forEach(element => {
-                observer.observe(element);
+            backToTopButton.addEventListener('click', function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             });
         }
 
-        // GSAP Animations for advanced effects
-        document.addEventListener('DOMContentLoaded', function () {
-            // Initialize scroll animations
-            handleScrollAnimations();
+        // FAQ Accordion
+            function initializeFAQAccordion() {
+                const faqItems = document.querySelectorAll('.faq-item');
+                if (!faqItems.length) return;
 
-            // Register ScrollTrigger plugin
-            gsap.registerPlugin(ScrollTrigger);
+                faqItems.forEach(item => {
+                    const toggle = item.querySelector('.faq-toggle');
+                    const content = item.querySelector('.faq-content');
+                    const plusIcon = item.querySelector('.faq-plus');
+                    const minusIcon = item.querySelector('.faq-minus');
 
-            // Hero animations
-            gsap.to('.hero::before', {
-                scale: 1.1,
-                duration: 10,
-                ease: 'none',
-                repeat: -1,
-                yoyo: true
+                    toggle.addEventListener('click', () => {
+                        // Close all other items
+                        faqItems.forEach(otherItem => {
+                            if (otherItem !== item) {
+                                const otherContent = otherItem.querySelector('.faq-content');
+                                const otherPlus = otherItem.querySelector('.faq-plus');
+                                const otherMinus = otherItem.querySelector('.faq-minus');
+
+                                otherContent.style.maxHeight = '0px';
+                                otherPlus.classList.remove('hidden');
+                                otherMinus.classList.add('hidden');
+                            }
+                        });
+
+                        // Toggle current item
+                        if (content.style.maxHeight === '0px' || !content.style.maxHeight) {
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                            plusIcon.classList.add('hidden');
+                            minusIcon.classList.remove('hidden');
+                        } else {
+                            content.style.maxHeight = '0px';
+                            plusIcon.classList.remove('hidden');
+                            minusIcon.classList.add('hidden');
+                        }
+                    });
+                });
+            }
+
+
+        // Contact Form
+        function initializeContactForm() {
+            const contactForm = document.getElementById('contactForm');
+            const formMessage = document.getElementById('formMessage');
+
+            if (!contactForm || !formMessage) return;
+
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Simulate form submission
+                formMessage.classList.remove('hidden');
+                formMessage.classList.add('block', 'bg-green-100', 'text-green-800', 'border', 'border-green-200');
+                formMessage.innerHTML = 'Thank you! Your message has been sent successfully. We will contact you soon.';
+
+                // Reset form
+                contactForm.reset();
+
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    formMessage.classList.add('hidden');
+                    formMessage.classList.remove('block', 'bg-green-100', 'text-green-800', 'border', 'border-green-200');
+                    formMessage.innerHTML = '';
+                }, 5000);
             });
+        }
 
-            // Stagger animations (these will still use GSAP)
-            // Category Cards Stagger
-            const categoryCards = document.querySelectorAll('.category-card');
-            gsap.to(categoryCards, {
-                opacity: 1,
-                y: 0,
-                stagger: 0.2,
-                duration: 0.8,
-                scrollTrigger: {
-                    trigger: '.categories-container',
-                    start: 'top 80%'
-                }
+        // Product Card Hover Effects
+        function initializeProductHovers() {
+            document.querySelectorAll('.product-card').forEach(card => {
+                const img = card.querySelector('.product-img');
+                const actions = card.querySelector('.product-actions');
+                const title = card.querySelector('.product-title');
+
+                card.addEventListener('mouseenter', () => {
+                    if (img) img.style.transform = 'scale(1.08)';
+                    if (actions) {
+                        actions.style.opacity = '1';
+                        actions.style.transform = 'translateX(0)';
+                    }
+                    if (title) title.style.color = '#FFD700';
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    if (img) img.style.transform = 'scale(1)';
+                    if (actions) {
+                        actions.style.opacity = '0';
+                        actions.style.transform = 'translateX(-8px)';
+                    }
+                    if (title) title.style.color = '';
+                });
             });
-
-            // Product Cards Stagger
-            const productCards = document.querySelectorAll('.product-card');
-            gsap.to(productCards, {
-                opacity: 1,
-                y: 0,
-                stagger: 0.2,
-                duration: 0.8,
-                scrollTrigger: {
-                    trigger: '.products-container',
-                    start: 'top 80%'
-                }
-            });
-
-            // Features Stagger
-            const featureBoxes = document.querySelectorAll('.feature-box');
-            gsap.to(featureBoxes, {
-                opacity: 1,
-                y: 0,
-                stagger: 0.2,
-                duration: 0.8,
-                scrollTrigger: {
-                    trigger: '.features-container',
-                    start: 'top 80%'
-                }
-            });
-
-            // Testimonial Cards Stagger
-            const testimonialCards = document.querySelectorAll('.testimonial-card');
-            gsap.to(testimonialCards, {
-                opacity: 1,
-                y: 0,
-                stagger: 0.2,
-                duration: 0.8,
-                scrollTrigger: {
-                    trigger: '.testimonials-container',
-                    start: 'top 80%'
-                }
+        }
+    </script>
+    <script>
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
         });
     </script>
