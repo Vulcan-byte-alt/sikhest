@@ -415,6 +415,10 @@
     <section id="categories" class="py-24 bg-light relative">
         <div class="absolute inset-0 bg-contact-pattern opacity-3"></div>
         <div class="container mx-auto px-6 relative z-10">
+            <p
+                class="text-center text-accent text-base uppercase tracking-wider font-semibold mb-6 opacity-0 transform translate-y-6 transition-all duration-1000 category-small-title">
+                Categories
+            </p>
             <h2
                 class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 category-title">
                 Shop By <span
@@ -525,6 +529,10 @@
     <section id="products" class="py-24 bg-light relative">
         <div class="absolute inset-0 bg-quote-pattern opacity-3"></div>
         <div class="container mx-auto px-6 relative z-10">
+            <p
+                class="text-center text-accent text-base uppercase tracking-wider font-semibold mb-6 opacity-0 transform translate-y-6 transition-all duration-1000 category-small-title">
+                Products
+            </p>
             <h2
                 class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 product-title">
                 Featured <span
@@ -735,6 +743,10 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <div
                     class="lg:col-span-7 opacity-0 transform translate-x-12 transition-all duration-1000 about-content">
+                    <p
+                        class="text-left text-accent text-base uppercase tracking-wider font-semibold mb-6 opacity-0 transform translate-y-6 transition-all duration-1000 category-small-title">
+                        About Us
+                    </p>
                     <h2 class="text-4xl font-extrabold mb-6">
                         About <span
                             class="text-accent relative inline-block after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-full after:h-1 after:bg-gradient-to-r after:from-accent after:to-amber-500 after:rounded">Sikhest
@@ -801,6 +813,10 @@
     <section class="py-24 bg-primary text-white relative">
         <div class="absolute inset-0 bg-tire-pattern opacity-5 animate-[bgScroll_30s_linear_infinite]"></div>
         <div class="container mx-auto px-6 relative z-10">
+            <p
+                class="text-center text-accent text-base uppercase tracking-wider font-semibold mb-6 opacity-0 transform translate-y-6 transition-all duration-1000 category-small-title">
+                Why Us?
+            </p>
             <h2
                 class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 why-us-title text-white">
                 Why <span
@@ -878,6 +894,10 @@
         <div class="absolute inset-0 bg-quote-pattern opacity-3"></div>
         <div class="container mx-auto px-6 relative z-10">
             <div class="mb-16 relative">
+                <p
+                    class="text-center text-accent text-base uppercase tracking-wider font-semibold mb-6 opacity-0 transform translate-y-6 transition-all duration-1000 category-small-title">
+                    Testimonials
+                </p>
                 <h2
                     class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 testimonial-title">
                     What Our <span
@@ -979,6 +999,10 @@
     <section id="blog" class="py-24 bg-light relative">
         <div class="absolute inset-0 bg-quote-pattern opacity-3"></div>
         <div class="container mx-auto px-6 relative z-10">
+            <p
+                class="text-center text-accent text-base uppercase tracking-wider font-semibold mb-6 opacity-0 transform translate-y-6 transition-all duration-1000 category-small-title">
+                Blog
+            </p>
             <h2
                 class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 blog-title">
                 Latest <span
@@ -1099,8 +1123,12 @@
 
     <!-- FAQ Section -->
     <section id="faq" class="py-24 bg-light relative">
-        <div class="absolute inset-0 bg-contact-pattern opacity-3"></div>
+        <div class="absolute inset-0 bg-quote-pattern opacity-3"></div>
         <div class="container mx-auto px-6 relative z-10">
+            <p
+                class="text-center text-accent text-base uppercase tracking-wider font-semibold mb-6 opacity-0 transform translate-y-6 transition-all duration-1000 category-small-title">
+                FAQ
+            </p>
             <h2
                 class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 faq-title">
                 Frequently <span
@@ -1273,6 +1301,10 @@
     <section id="contact" class="py-24 bg-light relative">
         <div class="absolute inset-0 bg-contact-pattern opacity-3"></div>
         <div class="container mx-auto px-6 relative z-10">
+            <p
+                class="text-center text-accent text-base uppercase tracking-wider font-semibold mb-6 opacity-0 transform translate-y-6 transition-all duration-1000 category-small-title">
+                Contact Us
+            </p>
             <h2
                 class="text-4xl font-extrabold uppercase text-center mb-8 opacity-0 transform translate-y-6 transition-all duration-1000 contact-title">
                 Get In <span
@@ -1641,6 +1673,7 @@
         // Scroll Animations
         function initializeScrollAnimations() {
             const animatedElements = {
+                '.category-small-title, .category-title, .category-desc': {},
                 '.category-title, .category-desc': {},
                 '.category-card': { threshold: 0.1, delay: true },
                 '.product-title, .product-desc': {},
